@@ -1,0 +1,37 @@
+---
+interface Props {
+  symbol?: 'gye-nyame' | 'adinkrahene' | 'sankofa';
+  class?: string;
+}
+
+const { symbol = 'gye-nyame', class: className = '' } = Astro.props;
+---
+
+<svg
+  class={`adinkra-watermark pointer-events-none ${className}`}
+  viewBox="0 0 100 100"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  {symbol === 'gye-nyame' && (
+    <>
+      <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="3" />
+      <path d="M50 10 L50 90 M10 50 L90 50 M22 22 L78 78 M78 22 L22 78" stroke="currentColor" stroke-width="2" fill="none" />
+    </>
+  )}
+  {symbol === 'adinkrahene' && (
+    <>
+      <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="3" />
+      <circle cx="50" cy="50" r="28" fill="none" stroke="currentColor" stroke-width="2" />
+      <circle cx="50" cy="50" r="16" fill="none" stroke="currentColor" stroke-width="2" />
+      <circle cx="50" cy="50" r="5" fill="currentColor" />
+    </>
+  )}
+  {symbol === 'sankofa' && (
+    <>
+      <path d="M30 70 Q20 40 50 20 Q80 40 70 70 Q60 85 50 80 Q40 85 30 70" fill="none" stroke="currentColor" stroke-width="3" />
+      <path d="M55 25 L65 15 L60 30 Z" fill="currentColor" />
+      <circle cx="45" cy="55" r="6" fill="currentColor" />
+    </>
+  )}
+</svg>

@@ -1,0 +1,291 @@
+---
+import { fashionSectionImages } from '../data/culture-images';
+
+const slotClass: Record<(typeof fashionSectionImages)[number]['slot'], string> = {
+  featured: 'fashion-section__image--featured',
+  street: 'fashion-section__image--street',
+  white: 'fashion-section__image--white',
+  group: 'fashion-section__image--group',
+  walking: 'fashion-section__image--walking',
+};
+---
+
+<section id="fashion" data-header-theme="dark" class="pulse-section fashion-section relative min-h-0 lg:min-h-[80vh]">
+  <div class="fashion-bg" aria-hidden="true">
+    <img src="/images/pulse/fashion.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" />
+    <div class="fashion-bg__overlay"></div>
+  </div>
+
+  <div class="relative z-10 section-padding">
+    <div class="fashion-section__inner">
+      <div class="fashion-section__content fade-rise">
+        <p class="fashion-section__eyebrow">Fashion with Heritage</p>
+        <h2 class="fashion-section__headline mt-5 text-foreground">
+          <span class="block">Celebrate</span>
+          <span class="block">Ghanaian</span>
+          <span class="block">Style</span>
+        </h2>
+        <p class="fashion-section__copy mt-6 text-base leading-relaxed text-foreground/80">
+          From handwoven cloth and smocks to bold festival looks, Ghana Day is where heritage
+          meets personal style. Come dressed to celebrate.
+        </p>
+      </div>
+
+      <div class="fashion-section__images" data-stagger>
+        {fashionSectionImages.map((photo, i) => (
+          <figure
+            class:list={['fashion-section__image', 'scale-in', slotClass[photo.slot]]}
+            style={`--reveal-delay: ${i * 60}ms`}
+          >
+            <img
+              src={photo.src}
+              alt={photo.alt}
+              width="640"
+              height="800"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .fashion-section {
+    background: var(--color-dark);
+  }
+
+  .fashion-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .fashion-bg > img {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: 50% 20%;
+    opacity: 0.08;
+    filter: blur(2px);
+    transform: scale(1.04);
+  }
+
+  .fashion-bg__overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgb(14 13 12 / 0.96) 0%, rgb(14 13 12 / 0.9) 42%, rgb(14 13 12 / 0.82) 100%),
+      rgb(14 13 12 / 0.88);
+  }
+
+  .fashion-section__inner {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .fashion-section__content {
+    max-width: 500px;
+    min-width: 0;
+  }
+
+  .fashion-section__copy {
+    max-width: 470px;
+  }
+
+  .fashion-section__eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+
+  .fashion-section__eyebrow::after {
+    content: '';
+    display: block;
+    width: 2.75rem;
+    height: 1px;
+    margin-top: 0.75rem;
+    background: var(--color-gold);
+  }
+
+  .fashion-section__headline {
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .fashion-section__images {
+    display: grid;
+    gap: 10px;
+    min-width: 0;
+    align-items: stretch;
+  }
+
+  .fashion-section__image {
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: #111;
+  }
+
+  .fashion-section__image img {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    display: block;
+    object-fit: cover;
+    object-position: top center;
+    transform: none;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .fashion-section__image--featured img {
+    object-position: top center;
+  }
+
+  .fashion-section__image--street img {
+    object-position: top center;
+  }
+
+  .fashion-section__image--white img {
+    object-position: top center;
+  }
+
+  .fashion-section__image--group img {
+    object-position: top center;
+  }
+
+  .fashion-section__image--walking img {
+    object-position: top center;
+  }
+
+  @media (max-width: 639px) {
+    .fashion-section__eyebrow {
+      letter-spacing: 0.12em;
+    }
+
+    .fashion-section__images {
+      grid-template-columns: 1fr;
+    }
+
+    .fashion-section__image--featured {
+      grid-column: 1 / -1;
+      aspect-ratio: 4 / 5;
+      width: min(100%, calc(28rem * 4 / 5));
+      max-height: 28rem;
+      margin-inline: auto;
+      justify-self: center;
+    }
+
+    .fashion-section__image--street,
+    .fashion-section__image--white {
+      grid-column: 1 / -1;
+      width: min(100%, 18rem);
+      margin-inline: auto;
+      justify-self: center;
+      aspect-ratio: 3 / 4;
+    }
+
+    .fashion-section__image--group,
+    .fashion-section__image--walking {
+      grid-column: 1 / -1;
+      aspect-ratio: 5 / 3;
+    }
+  }
+
+  @media (min-width: 640px) and (max-width: 1023px) {
+    .fashion-section__images {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .fashion-section__image--featured {
+      grid-column: 1 / -1;
+      aspect-ratio: 4 / 5;
+      width: min(100%, calc(28rem * 4 / 5));
+      max-height: 28rem;
+      margin-inline: auto;
+      justify-self: center;
+    }
+
+    .fashion-section__image--street {
+      grid-column: 1;
+      aspect-ratio: 3 / 4;
+    }
+
+    .fashion-section__image--white {
+      grid-column: 2;
+      aspect-ratio: 3 / 4;
+    }
+
+    .fashion-section__image--group {
+      grid-column: 1 / -1;
+      aspect-ratio: 5 / 3;
+    }
+
+    .fashion-section__image--walking {
+      grid-column: 1 / -1;
+      aspect-ratio: 5 / 3;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .fashion-section__inner {
+      width: min(100% - 64px, 1480px);
+      margin-inline: auto;
+      grid-template-columns: minmax(340px, 0.78fr) minmax(0, 1.5fr);
+      gap: clamp(48px, 5vw, 80px);
+    }
+
+    .fashion-section__images {
+      grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-rows: minmax(0, 1.2fr) minmax(0, 1.22fr) minmax(0, 1fr);
+      height: clamp(700px, 52vw, 840px);
+    }
+
+    .fashion-section__image--featured {
+      grid-column: 1;
+      grid-row: 1 / 4;
+    }
+
+    .fashion-section__image--street {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .fashion-section__image--white {
+      grid-column: 3;
+      grid-row: 1;
+    }
+
+    .fashion-section__image--group {
+      grid-column: 2 / 4;
+      grid-row: 2;
+    }
+
+    .fashion-section__image--walking {
+      grid-column: 2 / 4;
+      grid-row: 3;
+    }
+  }
+
+  @media (hover: hover) {
+    .fashion-section__image:hover img {
+      transform: scale(1.02);
+    }
+  }
+</style>

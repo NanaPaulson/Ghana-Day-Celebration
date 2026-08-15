@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" aria-hidden="true">
+  <defs>
+    <pattern id="kente-weave" width="128" height="128" patternUnits="userSpaceOnUse">
+      <!-- Transparent base — tiles over any cream tone -->
+
+      <!-- Horizontal warp threads -->
+      <g stroke="#1A1613" stroke-width="0.5" opacity="0.045">
+        <line x1="0" y1="8" x2="128" y2="8" />
+        <line x1="0" y1="24" x2="128" y2="24" />
+        <line x1="0" y1="40" x2="128" y2="40" />
+        <line x1="0" y1="56" x2="128" y2="56" />
+        <line x1="0" y1="72" x2="128" y2="72" />
+        <line x1="0" y1="88" x2="128" y2="88" />
+        <line x1="0" y1="104" x2="128" y2="104" />
+        <line x1="0" y1="120" x2="128" y2="120" />
+      </g>
+
+      <!-- Vertical weft accents  muted Ghana palette -->
+      <g stroke-width="1" opacity="0.07">
+        <line x1="16" y1="0" x2="16" y2="128" stroke="#006B3F" />
+        <line x1="48" y1="0" x2="48" y2="128" stroke="#C8102E" />
+        <line x1="80" y1="0" x2="80" y2="128" stroke="#F2A900" />
+        <line x1="112" y1="0" x2="112" y2="128" stroke="#1A1613" />
+      </g>
+
+      <!-- Staggered geometric blocks  original layout -->
+      <g opacity="0.08">
+        <rect x="4" y="12" width="8" height="8" fill="#006B3F" />
+        <rect x="20" y="12" width="8" height="8" fill="#F2A900" />
+        <rect x="36" y="28" width="8" height="8" fill="#C8102E" />
+        <rect x="52" y="12" width="8" height="8" fill="#1A1613" />
+        <rect x="68" y="28" width="8" height="8" fill="#006B3F" />
+        <rect x="84" y="12" width="8" height="8" fill="#F2A900" />
+        <rect x="100" y="28" width="8" height="8" fill="#C8102E" />
+        <rect x="116" y="12" width="8" height="8" fill="#006B3F" />
+
+        <rect x="12" y="44" width="8" height="8" fill="#C8102E" />
+        <rect x="28" y="60" width="8" height="8" fill="#006B3F" />
+        <rect x="44" y="44" width="8" height="8" fill="#F2A900" />
+        <rect x="60" y="60" width="8" height="8" fill="#1A1613" />
+        <rect x="76" y="44" width="8" height="8" fill="#C8102E" />
+        <rect x="92" y="60" width="8" height="8" fill="#F2A900" />
+        <rect x="108" y="44" width="8" height="8" fill="#006B3F" />
+
+        <rect x="4" y="76" width="8" height="8" fill="#F2A900" />
+        <rect x="20" y="92" width="8" height="8" fill="#1A1613" />
+        <rect x="36" y="76" width="8" height="8" fill="#006B3F" />
+        <rect x="52" y="92" width="8" height="8" fill="#C8102E" />
+        <rect x="68" y="76" width="8" height="8" fill="#F2A900" />
+        <rect x="84" y="92" width="8" height="8" fill="#006B3F" />
+        <rect x="100" y="76" width="8" height="8" fill="#1A1613" />
+        <rect x="116" y="92" width="8" height="8" fill="#C8102E" />
+
+        <rect x="12" y="108" width="8" height="8" fill="#006B3F" />
+        <rect x="28" y="108" width="8" height="8" fill="#F2A900" />
+        <rect x="44" y="108" width="8" height="8" fill="#1A1613" />
+        <rect x="60" y="108" width="8" height="8" fill="#C8102E" />
+        <rect x="76" y="108" width="8" height="8" fill="#F2A900" />
+        <rect x="92" y="108" width="8" height="8" fill="#006B3F" />
+        <rect x="108" y="108" width="8" height="8" fill="#C8102E" />
+      </g>
+
+      <!-- Thin band stripes  woven strip effect -->
+      <g opacity="0.055">
+        <rect x="0" y="32" width="128" height="2" fill="#F2A900" />
+        <rect x="0" y="64" width="128" height="1" fill="#C8102E" />
+        <rect x="0" y="96" width="128" height="2" fill="#006B3F" />
+      </g>
+
+      <!-- Subtle interlace diamonds -->
+      <g fill="none" stroke="#1A1613" stroke-width="0.75" opacity="0.04">
+        <path d="M24 20 L32 28 L24 36 L16 28 Z" />
+        <path d="M88 20 L96 28 L88 36 L80 28 Z" />
+        <path d="M56 52 L64 60 L56 68 L48 60 Z" />
+        <path d="M24 84 L32 92 L24 100 L16 92 Z" />
+        <path d="M88 84 L96 92 L88 100 L80 92 Z" />
+      </g>
+    </pattern>
+  </defs>
+  <rect width="128" height="128" fill="url(#kente-weave)" />
+</svg>

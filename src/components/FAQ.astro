@@ -1,0 +1,34 @@
+---
+import { getCollection, render } from 'astro:content';
+
+const entries = (await getCollection('faq')).sort((a, b) => a.data.order - b.data.order);
+const items = await Promise.all(
+  entries.map(async (entry) => ({
+    entry,
+    rendered: await render(entry),
+  }))
+);
+---
+
+<section id="faq" data-header-theme="dark" class="section-dark section-padding">
+  <div class="page-container mx-auto max-w-3xl">
+    <p class="pulse-eyebrow fade-rise">Questions</p>
+    <h2 class="fade-rise mt-4 text-foreground">FAQs</h2>
+
+    <div class="mt-10 space-y-4" data-stagger>
+      {items.map(({ entry, rendered }) => (
+        <details class="faq-item pulse-card scale-in group">
+          <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-3 p-4 font-semibold text-foreground sm:gap-4 sm:p-5 [&::-webkit-details-marker]:hidden">
+            <span class="min-w-0 text-left">{entry.data.question}</span>
+            <svg class="faq-chevron h-5 w-5 shrink-0 text-ghana-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <div class="border-t border-foreground/10 px-5 pb-5 pt-3 text-sm leading-relaxed text-foreground/75">
+            <rendered.Content />
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

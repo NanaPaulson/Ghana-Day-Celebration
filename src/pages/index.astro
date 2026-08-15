@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Welcome from '../components/Welcome.astro';
+import CultureFood from '../components/CultureFood.astro';
+import Music from '../components/Music.astro';
+import Fashion from '../components/Fashion.astro';
+import HistoryTimeline from '../components/HistoryTimeline.astro';
+import Marketplace from '../components/Marketplace.astro';
+import SchedulePulse from '../components/SchedulePulse.astro';
+import Vendors from '../components/Vendors.astro';
+import Sponsors from '../components/Sponsors.astro';
+import CommunityInquiry from '../components/CommunityInquiry.astro';
+import GettingThere from '../components/GettingThere.astro';
+import FAQ from '../components/FAQ.astro';
+import { EVENT_DESCRIPTION } from '../constants';
+---
+
+<BaseLayout
+  title="Ghana Day in Tampa Bay 2026"
+  description={EVENT_DESCRIPTION}
+  ogImage="/images/gallery/hero-multicultural.jpg"
+>
+  <Hero />
+  <Welcome />
+  <CultureFood />
+  <Music />
+  <Fashion />
+  <HistoryTimeline />
+  <Marketplace />
+  <SchedulePulse />
+  <Vendors />
+  <Sponsors />
+  <CommunityInquiry />
+  <GettingThere />
+  <FAQ />
+</BaseLayout>

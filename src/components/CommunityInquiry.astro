@@ -1,0 +1,130 @@
+---
+import { cultureImages } from '../data/culture-images';
+import { communitySectors, inquirySectors } from '../data/pulse';
+import { CONTACT_EMAIL, isPlaceholder } from '../constants';
+
+const email = isPlaceholder(CONTACT_EMAIL) ? 'info@ghanadaytb.com' : CONTACT_EMAIL;
+---
+
+<section id="community" data-header-theme="dark" class="pulse-section relative min-h-[80vh]">
+  <div class="section-bg-image" aria-hidden="true">
+    <img src={cultureImages.ga} alt="" width="1920" height="1080" loading="lazy" decoding="async" />
+    <div class="absolute inset-0 bg-dark/88"></div>
+  </div>
+
+  <div class="relative z-10 section-padding page-container">
+    <div class="mx-auto max-w-3xl text-center">
+      <p class="pulse-eyebrow fade-rise">One Family, One Community</p>
+      <h2 class="fade-rise mt-4 text-foreground" style="--reveal-delay: 60ms">
+        Connecting<br />Businesses &amp; Communities
+      </h2>
+      <p class="fade-rise mx-auto mt-6 max-w-2xl text-base leading-relaxed text-foreground/70" style="--reveal-delay: 100ms">
+        Ghanaian and African diaspora associations, businesses, and community groups are warmly
+        invited to partner, sponsor, or participate in this celebration of unity, education, youth
+        empowerment, and community development.
+      </p>
+    </div>
+
+    <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {communitySectors.map((sector, i) => (
+        <article class="pulse-card fade-rise" style={`--reveal-delay: ${i * 80}ms`}>
+          <h3 class="text-lg text-ghana-gold">{sector.title}</h3>
+          <p class="mt-3 text-sm leading-relaxed text-foreground/70">{sector.description}</p>
+        </article>
+      ))}
+    </div>
+
+    <div class="fade-rise mx-auto mt-14 max-w-xl pulse-card" style="--reveal-delay: 240ms">
+      <h3 class="text-lg text-foreground">Inquiry Terminal</h3>
+      <p class="mt-2 text-sm text-foreground/65">
+        Interested in partnering, sponsoring, exhibiting, or attending as an association? Let us know.
+      </p>
+
+      <form id="inquiry-form" class="mt-6 space-y-4" novalidate>
+        <div>
+          <label for="inquiry-name" class="sr-only">Full Name</label>
+          <input
+            id="inquiry-name"
+            name="name"
+            type="text"
+            required
+            placeholder="Full Name"
+            class="form-field"
+          />
+        </div>
+        <div>
+          <label for="inquiry-email" class="sr-only">Email Address</label>
+          <input
+            id="inquiry-email"
+            name="email"
+            type="email"
+            required
+            placeholder="Email Address"
+            class="form-field"
+          />
+        </div>
+        <div>
+          <label for="inquiry-sector" class="sr-only">Select Sector</label>
+          <select
+            id="inquiry-sector"
+            name="sector"
+            required
+            class="form-field"
+          >
+            <option value="" disabled selected>Select Sector</option>
+            {inquirySectors.map((sector) => (
+              <option value={sector}>{sector}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label for="inquiry-message" class="sr-only">Your Message</label>
+          <textarea
+            id="inquiry-message"
+            name="message"
+            rows="4"
+            placeholder="Your Message"
+            class="form-field resize-y"
+          ></textarea>
+        </div>
+        <button type="submit" class="btn-gold w-full">Submit Inquiry</button>
+        <p id="inquiry-status" class="hidden text-sm text-ghana-gold" role="status"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  #community .section-bg-image > img {
+    max-width: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>
+
+<script define:vars={{ email }}>
+  const form = document.getElementById('inquiry-form') as HTMLFormElement | null;
+  const status = document.getElementById('inquiry-status');
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!form || !status) return;
+
+    const data = new FormData(form);
+    const name = String(data.get('name') ?? '');
+    const userEmail = String(data.get('email') ?? '');
+    const sector = String(data.get('sector') ?? '');
+    const message = String(data.get('message') ?? '');
+
+    const subject = encodeURIComponent(`Ghana Day TB Inquiry: ${sector}`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${userEmail}\nSector: ${sector}\n\n${message}`
+    );
+
+    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+
+    status.textContent = 'Opening your email app to send your inquiry…';
+    status.classList.remove('hidden');
+  });
+</script>

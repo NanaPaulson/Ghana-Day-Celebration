@@ -1,0 +1,608 @@
+---
+import { homeCarouselSlides } from '../data/culture-images';
+import { CONTACT_EMAIL, EVENT_ALT_NAME, EVENT_DATE, EVENT_TIME, VENUE } from '../constants';
+
+const ticketMailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Ghana Day Tickets')}`;
+---
+
+<section id="hero" data-header-theme="dark" class="hero-section relative bg-dark text-foreground">
+  <div class="hero-stage">
+    <div class="hero-visual home-carousel">
+      <div class="hero-carousel" data-image-carousel data-interval="5000" aria-hidden="true">
+        {homeCarouselSlides.map((slide, index) => (
+          <div
+            class:list={['hero-slide', 'home-carousel__slide', { 'is-active': index === 0 }]}
+            data-slide-id={slide.id}
+          >
+            <div
+              class="hero-slide-fill"
+              style={`background-image: url('${slide.mobileImage}'); --hero-object-position-mobile: ${slide.objectPositionMobile}`}
+              aria-hidden="true"
+            ></div>
+            <picture class="home-carousel__media">
+              <source media="(min-width: 1024px)" srcset={`${slide.desktopImage}?v=20260813b`} />
+              <img
+                src={slide.mobileImage}
+                alt={slide.alt}
+                class="home-carousel__image"
+                style={`--hero-object-position-mobile: ${slide.objectPositionMobile};`}
+                loading={index === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+                fetchpriority={index === 0 ? 'high' : 'low'}
+              />
+            </picture>
+          </div>
+        ))}
+      </div>
+
+      <div class="hero-content-scrim home-carousel__overlay pointer-events-none absolute inset-0" aria-hidden="true"></div>
+
+      <div class="hero-content-overlay home-carousel__content" aria-hidden="false">
+        <div class="hero-content flex w-full items-start px-4 py-5 sm:px-5 sm:py-6 md:px-8 lg:px-12">
+          <div class="hero-copy max-w-xl lg:max-w-none">
+            <p class="pulse-eyebrow hero-animate" style="--hero-delay: 0ms">
+              <span class="text-ghana-gold" aria-hidden="true">◆ </span>The Inaugural Celebration
+            </p>
+
+            <h1 class="hero-animate mt-3 leading-[0.95] sm:mt-4" style="--hero-delay: 60ms">
+              <span class="block text-[clamp(2rem,8vw,4.5rem)] text-foreground">Ghana Day</span>
+              <span class="block text-[clamp(2rem,8vw,4.5rem)] text-ghana-gold">Tampa Bay</span>
+            </h1>
+
+            <div class="hero-accent-rule hero-animate mt-3 sm:mt-4" style="--hero-delay: 100ms" aria-hidden="true"></div>
+
+            <p class="hero-animate mt-3 text-base font-semibold text-foreground sm:mt-4 sm:text-lg md:text-xl" style="--hero-delay: 140ms">
+              {EVENT_ALT_NAME}
+            </p>
+
+            <div class="hero-theme hero-animate mt-3 sm:mt-4" style="--hero-delay: 200ms">
+              <p class="script-accent text-ghana-gold">Wear the Culture:</p>
+              <p class="mt-1 font-display text-sm uppercase tracking-wide text-foreground sm:text-base md:text-lg">
+                Fashion with Heritage
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-carousel-ui carousel-indicators home-carousel__indicators pointer-events-auto z-20 flex items-center justify-center gap-2 px-4 pb-3 sm:pb-4" aria-hidden="false">
+        {homeCarouselSlides.map((_, index) => (
+          <button
+            type="button"
+            class:list={['hero-indicator', { 'is-active': index === 0 }]}
+            data-hero-go={index}
+            aria-label={`Show hero image ${index + 1} of ${homeCarouselSlides.length}`}
+            aria-current={index === 0 ? 'true' : 'false'}
+          />
+        ))}
+      </div>
+    </div>
+
+    <div class="hero-body w-full px-4 pb-6 sm:px-5 sm:pb-8 md:px-8 lg:px-12">
+      <div class="home-actions-and-details">
+        <div class="carousel-actions hero-animate flex w-full flex-col gap-3 md:flex-row md:flex-wrap md:gap-4" style="--hero-delay: 280ms">
+          <a href={ticketMailto} class="btn-gold hero-btn inline-flex items-center justify-center gap-2">
+            <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
+            </svg>
+            Get Tickets
+          </a>
+          <a href="#sponsors" class="btn-vendor-dark hero-btn inline-flex items-center justify-center gap-2">
+            <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            </svg>
+            Become a Vendor
+          </a>
+          <a href="#getting-there" class="btn-vendor-dark hero-btn inline-flex items-center justify-center gap-2">
+            <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            Getting There
+          </a>
+        </div>
+
+        <div class="event-information-panel hero-body-animate hero-info-bar-dark fade-rise grid w-full grid-cols-1 gap-4 rounded-lg border border-foreground/10 bg-dark-card px-4 py-4 md:grid-cols-3 md:gap-0 md:px-0 md:py-0" style="--reveal-delay: 120ms">
+        <div class="hero-info-item hero-info-item--divided md:px-5 md:py-5 lg:px-6 lg:py-6">
+          <svg class="hero-info-icon-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          <div class="min-w-0">
+            <p class="hero-info-label-dark">When</p>
+            <p class="hero-info-value-dark">{EVENT_DATE}</p>
+            <p class="hero-info-value-dark">{EVENT_TIME}</p>
+          </div>
+        </div>
+
+        <div class="hero-info-item hero-info-item--divided md:px-5 md:py-5 lg:px-6 lg:py-6">
+          <svg class="hero-info-icon-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <div class="min-w-0">
+            <p class="hero-info-label-dark">Where</p>
+            <p class="hero-info-value-dark">{VENUE.name}</p>
+            <p class="hero-info-value-dark break-words">{VENUE.street.replace('St', 'Street')}, {VENUE.city}, {VENUE.state}</p>
+          </div>
+        </div>
+
+        <div class="hero-info-item md:px-5 md:py-5 lg:px-6 lg:py-6">
+          <svg class="hero-info-icon-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          <div class="min-w-0">
+            <p class="hero-info-label-dark">Celebrate</p>
+            <p class="hero-info-value-dark">Culture, community</p>
+            <p class="hero-info-value-dark">&amp; heritage together</p>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <div class="hero-body-animate hero-scroll-hint mt-6 flex flex-col items-center sm:mt-8" style="--reveal-delay: 200ms">
+        <div class="scroll-hint-line h-6 w-px bg-ghana-gold/50 sm:h-8" aria-hidden="true"></div>
+        <p class="scroll-hint-label mt-2 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-ghana-gold sm:tracking-[0.35em]">Scroll</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-section {
+    overflow-x: clip;
+    padding-top: var(--site-header-height, 4.5rem);
+    --hero-body-reserve: 22rem;
+  }
+
+  @media (min-width: 640px) {
+    .hero-section {
+      --hero-body-reserve: 21rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .hero-section {
+      --hero-body-reserve: 20rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-section {
+      --hero-body-reserve: 21rem;
+    }
+  }
+
+  .hero-stage {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+
+  .hero-visual {
+    position: relative;
+    flex-shrink: 0;
+    width: 100%;
+    overflow: hidden;
+    isolation: isolate;
+    background: var(--color-dark);
+  }
+
+  @media (max-width: 1023px) {
+    .hero-visual {
+      aspect-ratio: 16 / 9;
+      height: auto;
+      max-height: min(40rem, calc(100dvh - var(--site-header-height, 4.5rem) - var(--hero-body-reserve, 22rem)));
+      min-height: 14rem;
+    }
+
+    .hero-content,
+    .hero-content .hero-copy {
+      overflow: visible;
+      max-height: none;
+    }
+  }
+
+  @media (max-width: 1023px) and (max-height: 32rem) {
+    .hero-section {
+      --hero-body-reserve: 13rem;
+    }
+
+    .hero-visual {
+      aspect-ratio: 16 / 9;
+      max-height: 22rem;
+      min-height: 12rem;
+    }
+
+    .hero-body {
+      padding-top: 0.75rem;
+    }
+
+    .hero-scroll-hint {
+      display: none;
+    }
+  }
+
+  .hero-content-scrim {
+    background: linear-gradient(
+      to bottom,
+      rgb(14 13 12 / 0.62) 0%,
+      rgb(14 13 12 / 0.18) 42%,
+      rgb(14 13 12 / 0.42) 100%
+    );
+  }
+
+  .hero-content-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-content {
+      overflow: hidden;
+    }
+
+    .hero-content .hero-copy {
+      max-height: 100%;
+      overflow: hidden;
+    }
+  }
+
+  .hero-body {
+    position: relative;
+    z-index: 20;
+    flex-shrink: 0;
+    padding-top: 1.25rem;
+    background: var(--color-dark);
+  }
+
+  @media (min-width: 768px) {
+    .hero-body {
+      padding-top: 1.5rem;
+    }
+  }
+
+  .hero-info-bar-dark {
+    position: relative;
+    backdrop-filter: none;
+  }
+
+  .hero-copy {
+    text-shadow: 0 2px 24px rgb(14 13 12 / 0.45);
+  }
+
+  .hero-theme {
+    display: inline-block;
+    max-width: 100%;
+    border-radius: 4px;
+    border: 1px solid rgb(244 241 234 / 0.12);
+    background: var(--color-overlay-dark);
+    padding: 0.75rem 0.875rem;
+    backdrop-filter: blur(8px);
+  }
+
+  @media (min-width: 640px) {
+    .hero-theme {
+      padding: 0.875rem 1rem;
+    }
+  }
+
+  .hero-theme .script-accent {
+    font-size: clamp(1.2rem, 3.5vw, 1.65rem);
+    line-height: 1.2;
+  }
+
+  .hero-accent-rule {
+    height: 3px;
+    width: 4.5rem;
+    border-radius: 2px;
+    background: var(--color-gold);
+  }
+
+  .hero-btn {
+    min-height: 2.75rem;
+    width: 100%;
+    font-size: 0.875rem;
+  }
+
+  @media (min-width: 768px) {
+    .hero-btn {
+      width: auto;
+      min-width: 10.5rem;
+      flex: 1 1 auto;
+    }
+  }
+
+  .hero-body a {
+    pointer-events: auto;
+  }
+
+  .home-actions-and-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  @media (min-width: 640px) {
+    .home-actions-and-details {
+      gap: 2rem;
+    }
+  }
+
+  .carousel-actions {
+    margin-left: 0;
+    margin-right: auto;
+    width: 100%;
+  }
+
+  .event-information-panel {
+    margin-left: 0;
+    margin-right: auto;
+    width: 100%;
+  }
+
+  .hero-carousel-ui {
+    pointer-events: none;
+  }
+
+  @media (max-width: 1023px) {
+    .hero-carousel-ui {
+      position: absolute;
+      inset-inline: 0;
+      bottom: 0;
+      z-index: 20;
+      padding-bottom: 0.75rem;
+    }
+  }
+
+  @media (min-width: 640px) and (max-width: 1023px) {
+    .hero-carousel-ui {
+      padding-bottom: 1rem;
+    }
+  }
+
+  .hero-carousel-ui .hero-indicator {
+    pointer-events: auto;
+  }
+
+  .hero-indicator {
+    position: relative;
+    display: inline-flex;
+    min-height: 2rem;
+    min-width: 2rem;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .hero-indicator::before {
+    content: '';
+    display: block;
+    height: 0.4375rem;
+    width: 0.4375rem;
+    border-radius: 9999px;
+    border: 1px solid rgb(244 241 234 / 0.45);
+    background: transparent;
+    transition: background-color 0.3s, transform 0.3s, border-color 0.3s, width 0.3s;
+  }
+
+  .hero-indicator.is-active::before {
+    width: 1.25rem;
+    border-radius: 9999px;
+    background: var(--color-gold);
+    border-color: var(--color-gold);
+  }
+
+  .hero-indicator:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  .scroll-hint-line {
+    animation: scroll-hint-line 2.2s ease-in-out infinite;
+  }
+
+  .scroll-hint-label {
+    animation: scroll-hint-fade 2.2s ease-in-out infinite;
+  }
+
+  @keyframes scroll-hint-line {
+    0%,
+    100% {
+      transform: scaleY(1);
+      opacity: 0.5;
+    }
+    50% {
+      transform: scaleY(1.35);
+      opacity: 1;
+    }
+  }
+
+  @keyframes scroll-hint-fade {
+    0%,
+    100% {
+      opacity: 0.45;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  .btn-vendor-dark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    border: 2px solid var(--color-gold);
+    background: transparent;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-foreground);
+    transition: color 0.3s, background-color 0.3s, border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  }
+
+  .btn-vendor-dark:hover {
+    background-color: var(--color-gold-muted-bg);
+    border-color: var(--color-gold);
+    color: var(--color-cream);
+  }
+
+  .btn-vendor-dark:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+
+  .hero-btn.btn-gold:focus-visible {
+    outline: 2px solid var(--color-foreground);
+    outline-offset: 3px;
+  }
+
+  .hero-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.875rem;
+  }
+
+  @media (min-width: 640px) {
+    .hero-info-item--divided {
+      border-right: 1px solid rgb(244 241 234 / 0.1);
+    }
+  }
+
+  .hero-info-icon-dark {
+    margin-top: 0.125rem;
+    height: 1.5rem;
+    width: 1.5rem;
+    flex-shrink: 0;
+    color: var(--color-gold);
+  }
+
+  @media (min-width: 640px) {
+    .hero-info-icon-dark {
+      height: 1.75rem;
+      width: 1.75rem;
+    }
+  }
+
+  .hero-info-label-dark {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-gold);
+  }
+
+  .hero-info-value-dark {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: rgb(244 241 234 / 0.88);
+  }
+
+  @media (min-width: 640px) {
+    .hero-info-value-dark {
+      font-size: 0.9375rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-section {
+      padding-top: var(--site-header-height, 6.75rem);
+      margin-top: 0;
+      width: 100%;
+      max-width: none;
+    }
+
+    .hero-stage {
+      margin-top: 0;
+      width: 100%;
+      max-width: none;
+    }
+
+    .hero-visual {
+      width: 100%;
+      max-width: none;
+      aspect-ratio: 24 / 7;
+      height: auto;
+    }
+
+    .hero-content-overlay {
+      position: absolute;
+      inset: auto;
+      z-index: 3;
+      left: clamp(42px, 4vw, 76px);
+      top: 50%;
+      transform: translateY(-50%);
+      width: min(390px, 30vw);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      top: auto;
+      left: auto;
+      z-index: 1;
+      height: auto;
+      width: 100%;
+      min-width: 0;
+      padding: 0;
+      overflow: visible;
+    }
+
+    .hero-content .hero-copy {
+      max-width: none;
+      max-height: none;
+      overflow: visible;
+    }
+
+    .hero-body {
+      padding-top: 0;
+      margin-top: 0;
+    }
+
+    .home-actions-and-details {
+      position: relative;
+      max-width: 80rem;
+      margin-top: 24px;
+      transform: none;
+      z-index: auto;
+    }
+
+    .carousel-actions {
+      margin-bottom: 0;
+    }
+
+    .hero-body .hero-scroll-hint {
+      margin-top: 1.25rem;
+    }
+
+    .hero-carousel-ui {
+      position: absolute;
+      left: 50%;
+      right: auto;
+      bottom: 24px;
+      transform: translateX(-50%);
+      z-index: 4;
+      padding-bottom: 0;
+    }
+  }
+</style>

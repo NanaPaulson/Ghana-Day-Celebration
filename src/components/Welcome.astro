@@ -1,0 +1,566 @@
+---
+import { welcomeCarouselSlides } from '../data/culture-images';
+import { welcomeSlides } from '../data/pulse';
+import { EVENT_DATE, VENUE } from '../constants';
+
+const slideCount = welcomeSlides.length;
+---
+
+<section
+  id="welcome"
+  data-header-theme="dark"
+  tabindex="0"
+  class="welcome-section section-dark pulse-section relative flex min-h-0 items-center overflow-x-clip py-14 sm:py-16 md:min-h-[85vh] md:py-0"
+  aria-roledescription="carousel"
+  aria-label="Welcome and Ghana history highlights"
+>
+  <div
+    id="welcome-carousel"
+    class="welcome-carousel image-carousel"
+    data-welcome-carousel
+    data-interval="7000"
+    aria-hidden="true"
+  >
+    {welcomeCarouselSlides.map((slide, index) => (
+      <img
+        src={slide.src}
+        alt=""
+        width="1920"
+        height="1080"
+        class:list={['welcome-carousel__slide', 'image-carousel__slide', { 'is-active': index === 0 }]}
+        style={`object-position: ${slide.objectPosition}`}
+        loading={index === 0 ? 'eager' : 'lazy'}
+        decoding="async"
+      />
+    ))}
+    <div class="welcome-carousel__shade" aria-hidden="true"></div>
+    <div class="welcome-carousel__text-gradient" aria-hidden="true"></div>
+  </div>
+
+  <div class="welcome-content-wrap relative z-20 w-full section-padding">
+    <div class="welcome-content page-container mx-auto max-w-[650px] text-center">
+      <div class="welcome-panels" data-welcome-panels>
+        {welcomeSlides.map((slide, index) => (
+          <article
+            class:list={['welcome-panel', { 'is-active': index === 0 }]}
+            data-welcome-panel={index}
+            aria-hidden={index === 0 ? 'false' : 'true'}
+          >
+            <h2 class="welcome-heading text-foreground">
+              {slide.heading.map((line) =>
+                line.accent ? (
+                  <>
+                    <span class="text-ghana-gold">{line.text}</span>
+                    <br />
+                  </>
+                ) : (
+                  <>
+                    {line.text}
+                    <br />
+                  </>
+                )
+              )}
+            </h2>
+
+            <p class="welcome-body mt-6 text-foreground sm:mt-8">{slide.body[0]}</p>
+
+            <p class="welcome-body mt-5 text-foreground sm:mt-6">
+              {slide.id === 'homecoming' ? (
+                <>
+                  Join us on <span class="text-ghana-gold font-semibold">{EVENT_DATE}</span>, at{' '}
+                  <span class="text-ghana-gold font-semibold">{VENUE.name}</span> in Tampa, Florida.
+                  We welcome attendees from across Florida and neighboring states to celebrate Ghanaian
+                  culture, cuisine, music, fashion, and community together.
+                </>
+              ) : (
+                slide.body[1]
+              )}
+            </p>
+
+            <div class="welcome-stats mt-10 grid grid-cols-1 gap-4 sm:mt-12 md:grid-cols-3 md:gap-5">
+              {slide.stats.map((stat) => (
+                <div class="text-center">
+                  <p
+                    class="font-display text-ghana-gold welcome-stat-value"
+                    data-count-up={
+                      slide.id === 'homecoming' && stat.value === '2026'
+                        ? '2026'
+                        : slide.id === 'homecoming' && stat.value === '1'
+                          ? '1'
+                          : undefined
+                    }
+                    data-count-start={stat.value === '1' ? '0' : stat.value === '2026' ? '2018' : undefined}
+                  >
+                    {stat.value}
+                  </p>
+                  <p class="welcome-stat-label mt-1.5 text-foreground/85 sm:mt-2">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div
+        class="welcome-controls mt-4 flex shrink-0 items-center justify-center gap-4 border-t border-foreground/10 pt-4 sm:mt-5 sm:pt-5"
+        role="group"
+        aria-label="Welcome carousel controls"
+      >
+        <button
+          type="button"
+          class="welcome-carousel-btn"
+          data-welcome-prev
+          aria-label="Previous slide"
+        >
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <div class="welcome-indicators flex items-center gap-2" data-welcome-indicators>
+          {welcomeSlides.map((_, index) => (
+            <button
+              type="button"
+              class:list={['welcome-indicator', { 'is-active': index === 0 }]}
+              data-welcome-go={index}
+              aria-label={`Show slide ${index + 1} of ${slideCount}`}
+              aria-current={index === 0 ? 'true' : 'false'}
+            />
+          ))}
+        </div>
+
+        <button
+          type="button"
+          class="welcome-carousel-btn"
+          data-welcome-next
+          aria-label="Next slide"
+        >
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .welcome-section {
+    isolation: isolate;
+  }
+
+  .welcome-carousel {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .welcome-carousel__slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    opacity: 0;
+    z-index: 0;
+    transition: opacity 1s ease-in-out;
+  }
+
+  .welcome-carousel__slide.is-active {
+    opacity: 1;
+    z-index: 1;
+    animation: welcome-ken-burns 9s ease-out forwards;
+  }
+
+  @keyframes welcome-ken-burns {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.05);
+    }
+  }
+
+  .welcome-carousel__shade {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.62);
+    pointer-events: none;
+  }
+
+  .welcome-carousel__text-gradient {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.55) 0%,
+        rgba(0, 0, 0, 0.35) 18%,
+        rgba(0, 0, 0, 0.82) 42%,
+        rgba(0, 0, 0, 0.88) 58%,
+        rgba(0, 0, 0, 0.35) 82%,
+        rgba(0, 0, 0, 0.55) 100%
+      ),
+      radial-gradient(
+        ellipse 90% 75% at 50% 48%,
+        rgba(0, 0, 0, 0.72) 0%,
+        rgba(0, 0, 0, 0.45) 55%,
+        transparent 100%
+      );
+  }
+
+  .welcome-content-wrap {
+    pointer-events: none;
+    width: 100%;
+  }
+
+  .welcome-content {
+    pointer-events: auto;
+  }
+
+  .welcome-panels {
+    position: relative;
+    min-height: clamp(18rem, 40vh, 22rem);
+    transition: min-height 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .welcome-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(1.75rem);
+    transition:
+      opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0.65s;
+    pointer-events: none;
+  }
+
+  .welcome-panel.is-active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+    z-index: 2;
+    pointer-events: auto;
+  }
+
+  .welcome-panel.is-exiting {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-1.75rem);
+    z-index: 1;
+  }
+
+  .welcome-heading {
+    font-size: clamp(1.75rem, 5.5vw, 3rem);
+    line-height: 1.08;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.65);
+  }
+
+  .welcome-body {
+    font-size: clamp(1.0625rem, 2.2vw, 1.25rem);
+    line-height: 1.65;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
+  }
+
+  .welcome-stat-value {
+    font-size: clamp(1.75rem, 5vw, 3rem);
+    line-height: 1;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .welcome-stat-label {
+    font-size: clamp(0.625rem, 1.8vw, 0.75rem);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    line-height: 1.35;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+  }
+
+  @media (max-width: 639px) {
+    .welcome-stat-label {
+      letter-spacing: 0.08em;
+      font-size: 0.6875rem;
+    }
+
+    .welcome-panels {
+      min-height: clamp(16rem, 38vh, 20rem);
+    }
+
+    .welcome-stat-value {
+      font-size: clamp(2rem, 8vw, 2.75rem);
+    }
+  }
+
+  @media (max-height: 32rem) and (orientation: landscape) {
+    .welcome-section {
+      min-height: auto;
+      padding-block: 3rem;
+    }
+
+    .welcome-panels {
+      min-height: auto;
+    }
+  }
+
+  .welcome-controls {
+    position: relative;
+    z-index: 5;
+  }
+
+  .welcome-carousel-btn {
+    display: inline-flex;
+    height: 2.75rem;
+    width: 2.75rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    border: 2px solid rgb(242 169 0 / 0.85);
+    background: var(--color-overlay-dark);
+    color: var(--color-foreground);
+    transition: background-color 0.25s, border-color 0.25s, transform 0.25s;
+  }
+
+  .welcome-carousel-btn:hover {
+    background: var(--color-gold-soft-bg);
+    border-color: var(--color-gold);
+  }
+
+  .welcome-carousel-btn:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+
+  .welcome-indicator {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .welcome-indicator::before {
+    content: '';
+    display: block;
+    height: 0.5rem;
+    width: 0.5rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(244, 241, 234, 0.55);
+    background: transparent;
+    transition: background-color 0.25s, transform 0.25s, border-color 0.25s, width 0.25s;
+  }
+
+  .welcome-indicator.is-active::before {
+    width: 1.25rem;
+    background: var(--color-gold);
+    border-color: var(--color-gold);
+  }
+
+  .welcome-indicator:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+  }
+
+  .welcome-section:focus {
+    outline: none;
+  }
+
+  .welcome-section:focus-visible {
+    outline: 2px solid rgb(242 169 0 / 0.65);
+    outline-offset: -4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .welcome-carousel__slide,
+    .welcome-panel {
+      transition: none;
+      animation: none;
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  const INTERVAL_MS = 7000;
+
+  function initWelcomeCarousel() {
+    const section = document.getElementById('welcome');
+    const carousel = document.getElementById('welcome-carousel');
+    if (!section || !carousel) return;
+
+    const bgSlides = Array.from(carousel.querySelectorAll<HTMLElement>('.welcome-carousel__slide'));
+    const contentPanels = Array.from(
+      section.querySelectorAll<HTMLElement>('[data-welcome-panel]')
+    );
+    const prevBtn = section.querySelector<HTMLButtonElement>('[data-welcome-prev]');
+    const nextBtn = section.querySelector<HTMLButtonElement>('[data-welcome-next]');
+    const indicators = Array.from(
+      section.querySelectorAll<HTMLButtonElement>('[data-welcome-go]')
+    );
+
+    const total = Math.min(bgSlides.length, contentPanels.length);
+    if (total < 2) return;
+
+    let current = contentPanels.findIndex((panel) => panel.classList.contains('is-active'));
+    if (current < 0) current = 0;
+
+    let timer: ReturnType<typeof setInterval> | undefined;
+    let paused = false;
+
+    const panelsWrap = section.querySelector<HTMLElement>('.welcome-panels');
+
+    const syncPanelHeight = () => {
+      if (!panelsWrap) return;
+      const activePanel = contentPanels[current];
+      if (!activePanel) return;
+      panelsWrap.style.minHeight = `${activePanel.offsetHeight}px`;
+    };
+
+    const syncIndicators = (index: number) => {
+      indicators.forEach((dot, i) => {
+        dot.classList.toggle('is-active', i === index);
+        dot.setAttribute('aria-current', i === index ? 'true' : 'false');
+      });
+    };
+
+    const showSlide = (index: number) => {
+      const next = (index + total) % total;
+
+      bgSlides.forEach((slide, i) => {
+        slide.classList.toggle('is-active', i === next);
+      });
+
+      contentPanels.forEach((panel, i) => {
+        const isNext = i === next;
+        panel.classList.remove('is-exiting');
+        panel.classList.toggle('is-active', isNext);
+        panel.setAttribute('aria-hidden', isNext ? 'false' : 'true');
+      });
+
+      current = next;
+      syncIndicators(next);
+      requestAnimationFrame(syncPanelHeight);
+    };
+
+    const stopTimer = () => {
+      if (timer) window.clearInterval(timer);
+      timer = undefined;
+    };
+
+    const startTimer = () => {
+      stopTimer();
+      if (paused) return;
+      timer = window.setInterval(() => {
+        showSlide(current + 1);
+      }, INTERVAL_MS);
+    };
+
+    prevBtn?.addEventListener('click', () => {
+      showSlide(current - 1);
+      startTimer();
+    });
+
+    nextBtn?.addEventListener('click', () => {
+      showSlide(current + 1);
+      startTimer();
+    });
+
+    indicators.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const index = Number(dot.dataset.welcomeGo);
+        if (!Number.isNaN(index)) {
+          showSlide(index);
+          startTimer();
+        }
+      });
+    });
+
+    section.addEventListener('mouseenter', () => {
+      paused = true;
+      stopTimer();
+    });
+
+    section.addEventListener('mouseleave', () => {
+      paused = false;
+      startTimer();
+    });
+
+    section.addEventListener(
+      'touchstart',
+      () => {
+        paused = true;
+        stopTimer();
+      },
+      { passive: true }
+    );
+
+    section.addEventListener(
+      'touchend',
+      () => {
+        window.setTimeout(() => {
+          if (!section.matches(':hover')) {
+            paused = false;
+            startTimer();
+          }
+        }, 4000);
+      },
+      { passive: true }
+    );
+
+    section.addEventListener('focusin', () => {
+      paused = true;
+      stopTimer();
+    });
+
+    section.addEventListener('focusout', (e) => {
+      if (!section.contains(e.relatedTarget as Node)) {
+        paused = false;
+        startTimer();
+      }
+    });
+
+    section.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        showSlide(current - 1);
+        startTimer();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        showSlide(current + 1);
+        startTimer();
+      }
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        stopTimer();
+      } else if (!paused) {
+        startTimer();
+      }
+    });
+
+    showSlide(current);
+    requestAnimationFrame(syncPanelHeight);
+    document.fonts?.ready.then(syncPanelHeight);
+    window.addEventListener('resize', syncPanelHeight);
+    startTimer();
+  }
+
+  initWelcomeCarousel();
+</script>

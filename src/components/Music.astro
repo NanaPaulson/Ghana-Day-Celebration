@@ -1,0 +1,42 @@
+---
+import { cultureImages } from '../data/culture-images';
+import { musicGenres } from '../data/pulse';
+---
+
+<section id="music" data-header-theme="dark" class="pulse-section relative min-h-[70vh]">
+  <div class="section-bg-image" aria-hidden="true">
+    <img src={cultureImages.music} alt="" width="1920" height="1080" loading="lazy" decoding="async" />
+    <div class="absolute inset-0 bg-gradient-to-b from-dark/92 via-dark/85 to-dark/95"></div>
+  </div>
+
+  <div class="relative z-10 section-padding page-container">
+    <div class="mx-auto max-w-3xl text-center">
+      <p class="pulse-eyebrow fade-rise">Feel the Beat of Ghana</p>
+      <h2 class="fade-rise mt-4 text-foreground" style="--reveal-delay: 60ms">
+        Where Rhythm<br />Becomes Language
+      </h2>
+      <p class="fade-rise mx-auto mt-6 max-w-2xl text-base leading-relaxed text-foreground/70" style="--reveal-delay: 100ms">
+        Experience cultural performances with traditional and contemporary music and dance exhibitions
+        throughout the day.
+      </p>
+    </div>
+
+    <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {musicGenres.map((genre, i) => (
+        <article class="pulse-card fade-rise" style={`--reveal-delay: ${i * 80}ms`}>
+          <h3 class="text-lg text-ghana-gold">{genre.title}</h3>
+          <p class="mt-3 text-sm leading-relaxed text-foreground/70">{genre.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  #music .section-bg-image > img {
+    max-width: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>

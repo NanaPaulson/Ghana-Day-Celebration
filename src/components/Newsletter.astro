@@ -1,0 +1,76 @@
+---
+import { MAILERLITE_ENDPOINT } from '../constants';
+---
+
+<section id="newsletter" data-header-theme="dark" class="bg-ghana-green section-padding">
+  <div class="page-container mx-auto max-w-xl px-0">
+    <h2 class="fade-rise text-cream">Don't miss a thing</h2>
+    <p class="fade-rise mt-4 text-body text-cream/90">
+      Get the schedule, lineup, and vendor announcements straight to your inbox.
+    </p>
+
+    <form id="newsletter-form" class="fade-rise mt-8 flex flex-col gap-3 sm:flex-row" action={MAILERLITE_ENDPOINT} method="POST">
+      <label for="email" class="sr-only">Email address</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        placeholder="your@email.com"
+        class="min-h-12 flex-1 rounded border-0 bg-cream px-4 text-base text-ink placeholder:text-ink/40 sm:min-h-11 sm:text-sm"
+        autocomplete="email"
+      />
+      <button type="submit" class="btn-gold shrink-0">Subscribe</button>
+    </form>
+
+    <p id="newsletter-message" class="mt-4 text-sm text-cream/80" role="status" aria-live="polite"></p>
+  </div>
+</section>
+
+<script define:vars={{ endpoint: MAILERLITE_ENDPOINT }}>
+  const form = document.getElementById('newsletter-form');
+  const message = document.getElementById('newsletter-message');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!message) return;
+
+    const formData = new FormData(form as HTMLFormElement);
+    const email = formData.get('email');
+
+    if (endpoint === 'MAILERLITE_ENDPOINT') {
+      message.textContent = 'Newsletter signup is not yet configured. Please check back soon.';
+      message.classList.add('text-ghana-gold');
+      return;
+    }
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors',
+      });
+
+      message.textContent = "You're on the list. See you November 7.";
+      message.classList.remove('text-ghana-red');
+      (form as HTMLFormElement).reset();
+    } catch {
+      message.textContent = 'Something went wrong. Please try again.';
+      message.classList.add('text-ghana-gold');
+    }
+  });
+</script>
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+</style>

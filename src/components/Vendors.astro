@@ -1,0 +1,62 @@
+---
+import { DEADLINE_PLACEHOLDER, VENDOR_FORM_URL, isPlaceholder } from '../constants';
+
+const tiers = [
+  {
+    name: 'Food Vendor',
+    price: '$PRICE',
+    includes: ['10×10 ft space', '1 table & 2 chairs', 'Electricity included', 'High-traffic food court area'],
+  },
+  {
+    name: 'Merchandise',
+    price: '$PRICE',
+    includes: ['10×10 ft space', '1 table & 2 chairs', 'Electricity available', 'Marketplace section'],
+  },
+  {
+    name: 'Nonprofit / Community',
+    price: '$PRICE',
+    includes: ['8×8 ft space', '1 table & 2 chairs', 'No electricity', 'Community outreach area'],
+  },
+];
+---
+
+<section id="vendors" data-header-theme="dark" class="section-dark section-padding">
+  <div class="page-container">
+    <p class="pulse-eyebrow fade-rise">Vendors</p>
+    <h2 class="fade-rise mt-4 text-foreground">Sell at Ghana Day</h2>
+    <p class="fade-rise mt-4 max-w-2xl text-base leading-relaxed text-foreground/75">
+      Ghana Day in Tampa Bay 2026 is expected to attract attendees from across Florida and neighboring
+      states. Vendor exhibitions put your business in front of an engaged community that values
+      authentic culture, Ghanaian entrepreneurship, and quality.
+    </p>
+
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 md:grid-cols-3" data-stagger>
+      {tiers.map((tier) => (
+        <article class="pulse-card scale-in transition-[border-color,transform,box-shadow] duration-300 hover:-translate-y-1">
+          <h3 class="text-lg text-foreground">{tier.name}</h3>
+          <p class="mt-2 font-display text-2xl text-ghana-gold">{tier.price}</p>
+          <ul class="mt-4 space-y-2 text-sm text-foreground/75">
+            {tier.includes.map((item) => (
+              <li class="flex items-start gap-2">
+                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ghana-gold" aria-hidden="true"></span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+
+    <p class="fade-rise mt-8 font-semibold text-ghana-gold">
+      Application deadline: {isPlaceholder(DEADLINE_PLACEHOLDER) ? 'To be announced' : DEADLINE_PLACEHOLDER}
+    </p>
+
+    {isPlaceholder(VENDOR_FORM_URL) ? (
+      <p class="fade-rise mt-6 text-foreground/70">Vendor applications opening soon.</p>
+    ) : (
+      <a href={VENDOR_FORM_URL} class="btn-gold fade-rise mt-6 inline-flex sm:w-auto" target="_blank" rel="noopener noreferrer">
+        Apply for a Booth
+      </a>
+    )}
+  </div>
+</section>

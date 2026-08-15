@@ -1,0 +1,48 @@
+---
+import { cultureImages } from '../data/culture-images';
+import { foodItems } from '../data/pulse';
+---
+
+<section id="culture" data-header-theme="dark" class="pulse-section relative min-h-[70vh]">
+  <div class="section-bg-image" aria-hidden="true">
+    <img src={cultureImages.food} alt="" width="1920" height="1080" loading="lazy" decoding="async" />
+    <div class="absolute inset-0 bg-gradient-to-r from-dark/95 via-dark/80 to-dark/50"></div>
+  </div>
+
+  <div class="relative z-10 section-padding page-container">
+    <div class="grid items-center gap-12 lg:grid-cols-2">
+      <div class="fade-rise">
+        <p class="pulse-eyebrow">Taste Ghana</p>
+        <h2 class="mt-4 text-foreground">
+          A Feast for the <span class="text-ghana-gold">Soul.</span>
+        </h2>
+        <p class="mt-6 text-base leading-relaxed text-foreground/75">
+          From the legendary Jollof Rice, Ghana's undisputed champion, to the spicy crunch of
+          Kelewele and the smoky richness of grilled Tilapia, every dish tells a story of tradition
+          passed through generations.
+        </p>
+        <p class="mt-4 text-base leading-relaxed text-foreground/65">
+          Experience authentic Ghanaian flavors prepared by Tampa Bay's finest Ghanaian chefs and food
+          artisans. Your taste buds are in for a cultural awakening.
+        </p>
+      </div>
+
+      <div class="fade-rise flex flex-wrap gap-3" style="--reveal-delay: 100ms">
+        {foodItems.map((item) => (
+          <span class="rounded border border-dark-border bg-dark-card/80 px-4 py-2 text-xs font-semibold uppercase tracking-nav text-foreground/80 backdrop-blur-sm">
+            {item}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #culture .section-bg-image > img {
+    max-width: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>

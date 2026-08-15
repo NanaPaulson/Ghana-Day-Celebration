@@ -1,0 +1,41 @@
+---
+import { scheduleItems } from '../data/pulse';
+import { EVENT_DATE, VENUE } from '../constants';
+---
+
+<section id="schedule" data-header-theme="dark" class="section-dark section-padding">
+  <div class="page-container">
+    <div class="mx-auto max-w-3xl text-center">
+      <p class="pulse-eyebrow fade-rise">Plan Your Day</p>
+      <h2 class="fade-rise mt-4 text-foreground" style="--reveal-delay: 60ms">Activities for the Day</h2>
+      <p class="fade-rise mx-auto mt-6 max-w-2xl text-base leading-relaxed text-foreground/70" style="--reveal-delay: 100ms">
+        {EVENT_DATE}, a full day of cultural performances, music, dance, cuisine, fashion, vendor
+        exhibitions, youth and family activities, and community networking at {VENUE.name}, {VENUE.city}.
+      </p>
+    </div>
+
+    <ol class="relative mx-auto mt-14 max-w-3xl space-y-0 border-l-2 border-ghana-gold/35 pl-6 md:border-l-0 md:pl-0">
+      <div class="absolute bottom-0 left-24 top-0 hidden w-px bg-ghana-gold/35 md:block" aria-hidden="true"></div>
+
+      {scheduleItems.map((item, i) => (
+        <li
+          class="fade-rise relative grid gap-4 border-b border-foreground/10 py-8 md:grid-cols-[5.5rem_1fr] md:gap-8"
+          style={`--reveal-delay: ${i * 60}ms`}
+        >
+          <span
+            class="timeline-marker absolute -left-[calc(0.75rem+1px)] top-[2.125rem] h-2.5 w-2.5 rounded-full bg-ghana-gold md:hidden"
+            aria-hidden="true"
+          ></span>
+          <div class="md:text-right">
+            <p class="font-display text-sm text-ghana-gold md:text-base">{item.time}</p>
+            <p class="mt-1 text-[0.6rem] font-semibold uppercase tracking-nav text-foreground/45">{item.category}</p>
+          </div>
+          <div>
+            <h3 class="text-lg text-foreground">{item.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-foreground/70">{item.description}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

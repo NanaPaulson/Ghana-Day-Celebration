@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+
+/**
+ * To add a schedule item: copy an existing .md file in src/content/schedule/
+ * and update the frontmatter (time, title, description, location, order).
+ */
+const items = (await getCollection('schedule')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<section id="schedule" data-header-theme="dark" class="section-dark section-padding">
+  <div class="page-container mx-auto max-w-3xl">
+    <p class="pulse-eyebrow fade-rise">Plan Your Day</p>
+    <h2 class="fade-rise mt-4 text-foreground">Activities for the Day</h2>
+
+    <ol class="relative mt-12 space-y-8 border-l-2 border-ghana-gold/50 pl-6 md:pl-8" data-stagger>
+      {items.map((item) => (
+        <li class="slide-in timeline-item relative">
+          <span
+            class="absolute -left-[calc(0.75rem+1px)] top-1 h-3 w-3 rounded-full bg-ghana-gold md:-left-[calc(1rem+1px)]"
+            aria-hidden="true"
+          ></span>
+          <div class="flex flex-col gap-1 md:flex-row md:gap-8">
+            <time class="shrink-0 font-display text-sm uppercase text-ghana-gold md:w-36">
+              {item.data.time}
+            </time>
+            <div>
+              <h3 class="text-lg text-foreground">{item.data.title}</h3>
+              {item.data.description && (
+                <p class="mt-1 text-sm text-foreground/75">{item.data.description}</p>
+              )}
+              {item.data.location && (
+                <p class="mt-1 text-sm text-foreground/60">{item.data.location}</p>
+              )}
+            </div>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

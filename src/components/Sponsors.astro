@@ -1,0 +1,125 @@
+---
+import { getCollection } from 'astro:content';
+import { CONTACT_EMAIL, SPONSOR_PDF_URL, isPlaceholder } from '../constants';
+
+let sponsorLogos: Awaited<ReturnType<typeof getCollection<'sponsors'>>> = [];
+try {
+  sponsorLogos = (await getCollection('sponsors'))
+    .filter((sponsor) => sponsor.data.active)
+    .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+} catch {
+  sponsorLogos = [];
+}
+
+const tiers = [
+  {
+    name: 'Friend',
+    price: '$PRICE',
+    featured: false,
+    benefits: ['Name on event website', 'Social media thank-you post', '2 complimentary tickets'],
+  },
+  {
+    name: 'Bronze',
+    price: '$PRICE',
+    featured: false,
+    benefits: ['Logo on website', 'Banner at venue', 'Social media mention', '4 complimentary tickets'],
+  },
+  {
+    name: 'Silver',
+    price: '$PRICE',
+    featured: false,
+    benefits: ['Logo on website & signage', 'Stage mention', '2 social posts', 'Vendor booth included', '6 tickets'],
+  },
+  {
+    name: 'Gold',
+    price: '$PRICE',
+    featured: true,
+    benefits: ['Premier logo placement', 'Main stage banner', 'Multiple social posts', 'Vendor booth included', 'VIP seating', '10 tickets'],
+  },
+];
+---
+
+<section id="sponsors" data-header-theme="dark" class="section-dark section-padding">
+  <div class="page-container">
+    <p class="pulse-eyebrow fade-rise">Sponsors</p>
+    <h2 class="fade-rise mt-4 text-foreground">Partner With Us</h2>
+    <p class="fade-rise mt-4 max-w-2xl text-base leading-relaxed text-foreground/75">
+      Sponsoring Ghana Day connects your brand with the vibrant Ghanaian community in Tampa Bay.
+      From logo placement to stage recognition, every tier offers meaningful visibility at Florida's
+      premier Ghanaian cultural festival.
+    </p>
+
+    <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4" data-stagger>
+      {tiers.map((tier) => (
+        <article
+          class:list={[
+            'pulse-card scale-in relative transition-[border-color,transform,box-shadow] duration-300 hover:-translate-y-1',
+            tier.featured ? 'border-ghana-gold' : '',
+          ]}
+        >
+          {tier.featured && (
+            <span class="absolute -top-3 left-4 bg-ghana-gold px-2 py-0.5 text-xs font-bold uppercase text-dark">
+              Most Visible
+            </span>
+          )}
+          <h3 class="text-lg text-foreground">{tier.name}</h3>
+          <p class="mt-2 font-display text-2xl text-ghana-gold">{tier.price}</p>
+          <ul class="mt-4 space-y-2 text-sm text-foreground/75">
+            {tier.benefits.map((benefit) => (
+              <li class="flex items-start gap-2">
+                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ghana-gold" aria-hidden="true"></span>
+                {benefit}
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+
+    <div class="fade-rise mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
+      {isPlaceholder(SPONSOR_PDF_URL) ? (
+        <p class="text-foreground/70">Sponsorship packet coming soon.</p>
+      ) : (
+        <a href={SPONSOR_PDF_URL} class="btn-gold sm:w-auto" target="_blank" rel="noopener noreferrer">
+          Download Sponsorship Packet
+        </a>
+      )}
+      {isPlaceholder(CONTACT_EMAIL) ? (
+        <p class="text-foreground/70">Sponsor inquiries opening soon.</p>
+      ) : (
+        <a href={`mailto:${CONTACT_EMAIL}?subject=Sponsorship%20Inquiry`} class="btn-vendor-dark sm:w-auto">
+          Talk to Our Team
+        </a>
+      )}
+    </div>
+
+    <div class="mt-16">
+      <h3 class="text-xl text-foreground">Our 2026 Sponsors</h3>
+      {sponsorLogos.length > 0 ? (
+        <div class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 md:grid-cols-4 md:gap-8">
+          {sponsorLogos.map((sponsor) => (
+            <a
+              href={sponsor.data.url ?? '#'}
+              class="pulse-card flex items-center justify-center p-4"
+              target={sponsor.data.url ? '_blank' : undefined}
+              rel={sponsor.data.url ? 'noopener noreferrer' : undefined}
+            >
+              <img
+                src={sponsor.data.logo}
+                alt={`${sponsor.data.name} logo`}
+                width="160"
+                height="80"
+                class="max-h-16 w-auto object-contain"
+                loading="lazy"
+              />
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="mt-6 text-foreground/60 italic">
+          Sponsor slots are open. Be the first.
+        </p>
+      )}
+    </div>
+  </div>
+</section>

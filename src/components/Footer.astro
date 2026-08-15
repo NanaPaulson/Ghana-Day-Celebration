@@ -1,0 +1,182 @@
+---
+import { footerNav } from '../data/nav';
+import { CONTACT_EMAIL, EVENT_DATE, isPlaceholder, ORGANIZATION_NAME, SOCIAL, VENUE } from '../constants';
+import SocialIcon from './SocialIcon.astro';
+
+const email = isPlaceholder(CONTACT_EMAIL) ? 'info@ghanadaytb.com' : CONTACT_EMAIL;
+const ticketMailto = `mailto:${email}?subject=${encodeURIComponent('Ghana Day Tickets')}`;
+
+const socialLinks = [
+  { href: SOCIAL.facebook, label: 'Facebook', platform: 'facebook' as const },
+  { href: SOCIAL.instagram, label: 'Instagram', platform: 'instagram' as const },
+  { href: SOCIAL.tiktok, label: 'TikTok', platform: 'tiktok' as const },
+  { href: SOCIAL.youtube, label: 'YouTube', platform: 'youtube' as const },
+];
+
+const legalLinks = [
+  { href: '#', label: 'Privacy Policy' },
+  { href: '#', label: 'Terms of Service' },
+  { href: '#getting-there', label: 'Accessibility' },
+];
+---
+
+<footer class="site-footer bg-dark text-foreground">
+  <div class="site-footer__accent" aria-hidden="true"></div>
+
+  <div class="section-padding page-container pb-10 pt-14 sm:pb-12 sm:pt-16 md:pt-20">
+    <div class="grid grid-cols-1 gap-12 text-center md:grid-cols-2 md:gap-x-12 md:gap-y-14 md:text-left lg:grid-cols-3 lg:gap-16">
+      <div class="md:max-w-sm lg:max-w-none">
+        <p class="font-display text-base uppercase tracking-wide text-foreground sm:text-lg">
+          Ghana Day <span class="text-ghana-gold">Tampa Bay</span>
+        </p>
+        <p class="mt-4 text-sm leading-relaxed text-foreground/75 sm:text-body">
+          One People. Diverse Culture.<br />
+          One Great Celebration.<br />
+          <span class="text-foreground/60">Maiden edition · {ORGANIZATION_NAME}</span>
+        </p>
+        <p class="mt-6 text-sm font-semibold text-ghana-gold sm:text-body">{EVENT_DATE}</p>
+        <address class="mt-3 not-italic text-sm leading-relaxed text-foreground/75 sm:text-body">
+          {VENUE.name}<br />
+          {VENUE.city}, {VENUE.state}
+        </address>
+        <a href={`mailto:${email}`} class="mt-3 inline-block text-sm text-ghana-gold transition-colors hover:text-ghana-gold-hover">
+          {email}
+        </a>
+      </div>
+
+      <div>
+        <h2 class="pulse-eyebrow">Quick Links</h2>
+        <ul class="mt-5 space-y-3">
+          {footerNav.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="footer-link inline-block text-sm text-foreground/80 transition-colors duration-200 hover:text-ghana-gold sm:text-body"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="md:col-span-2 md:flex md:flex-col md:items-center md:text-center lg:col-span-1 lg:items-start lg:text-left">
+        <h2 class="pulse-eyebrow">Follow Us</h2>
+        <ul class="mt-5 space-y-3">
+          {socialLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="footer-link inline-flex items-center justify-center gap-3 text-sm text-foreground/80 transition-colors duration-200 hover:text-ghana-gold md:justify-start sm:text-body"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <SocialIcon platform={link.platform} class="h-5 w-5 shrink-0 text-ghana-gold" />
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div class="mt-8 flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap lg:justify-start">
+          <a href={ticketMailto} class="btn-gold w-full sm:w-auto">
+            Get Tickets
+          </a>
+          <a href="#vendors" class="btn-vendor-dark footer-vendor-btn w-full sm:w-auto">
+            Become a Vendor
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-14 flex flex-col items-center gap-4 border-t border-foreground/10 pt-8 text-center sm:mt-16 sm:gap-5 md:flex-row md:items-center md:justify-between md:text-left">
+      <button
+        id="reduce-motion-toggle"
+        type="button"
+        class="min-h-11 rounded px-3 py-2 text-xs uppercase tracking-nav text-foreground/45 transition-colors hover:text-foreground/75"
+      >
+        Reduce Motion
+      </button>
+
+      <p class="text-xs text-foreground/55 sm:text-sm">
+        &copy; 2026 {ORGANIZATION_NAME}
+      </p>
+
+      <ul class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 md:justify-end">
+        {legalLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="footer-link text-xs text-foreground/55 transition-colors duration-200 hover:text-foreground/85 sm:text-sm"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('reduce-motion-toggle');
+
+  toggle?.addEventListener('click', () => {
+    document.documentElement.classList.toggle('reduce-motion-user');
+    const enabled = document.documentElement.classList.contains('reduce-motion-user');
+    toggle.textContent = enabled ? 'Enable Motion' : 'Reduce Motion';
+  });
+</script>
+
+<style>
+  .site-footer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .site-footer__accent {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgb(242 169 0 / 0.55) 50%,
+      transparent 100%
+    );
+  }
+
+  .footer-vendor-btn {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    border: 2px solid var(--color-gold);
+    background: transparent;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-foreground);
+    transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+  }
+
+  .footer-vendor-btn:hover {
+    background-color: var(--color-gold-muted-bg);
+    color: var(--color-cream);
+  }
+
+  .footer-link:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  :global(html.reduce-motion-user) *,
+  :global(html.reduce-motion-user) *::before,
+  :global(html.reduce-motion-user) *::after {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+</style>

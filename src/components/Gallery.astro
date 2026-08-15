@@ -1,0 +1,43 @@
+---
+/**
+ * To add gallery photos:
+ * 1. Place images in public/images/gallery/
+ * 2. Create a new JSON file in src/content/gallery/ with fields:
+ *    src, alt, width, height, and optional order
+ */
+import { getCollection } from 'astro:content';
+
+let photos: Awaited<ReturnType<typeof getCollection<'gallery'>>> = [];
+try {
+  photos = (await getCollection('gallery')).sort(
+    (a, b) => (a.data.order ?? 0) - (b.data.order ?? 0)
+  );
+} catch {
+  photos = [];
+}
+
+if (photos.length === 0) return null;
+---
+
+<section id="gallery" class="section-padding bg-cream">
+  <div class="page-container">
+    <p class="eyebrow fade-rise">Memories</p>
+    <h2 class="fade-rise mt-2">Celebrating Our Culture</h2>
+
+    <div class="mt-10 columns-1 gap-4 sm:columns-2 lg:columns-3" data-stagger>
+      {photos.map((photo) => (
+        <div class="gallery-item scale-in mb-4 break-inside-avoid">
+          <img
+            src={photo.data.src}
+            alt={photo.data.alt}
+            width={photo.data.width}
+            height={photo.data.height}
+            class="w-full rounded"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

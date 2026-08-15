@@ -1,0 +1,23 @@
+---
+import { CONTACT_EMAIL, EVENT_DATE, isPlaceholder, VENUE } from '../constants';
+
+const email = isPlaceholder(CONTACT_EMAIL) ? 'info@ghanadaytb.com' : CONTACT_EMAIL;
+const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(VENUE.mapsQuery)}`;
+---
+
+<section id="ready" class="pulse-section bg-dark section-padding">
+  <div class="page-container">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="fade-rise text-2xl text-ghana-gold" aria-hidden="true">◉</p>
+      <h2 class="fade-rise mt-4 text-foreground" style="--reveal-delay: 60ms">Ready to Celebrate?</h2>
+      <p class="fade-rise mt-4 text-base text-foreground/70" style="--reveal-delay: 100ms">
+        {VENUE.name} · {VENUE.street} · {VENUE.city}, {VENUE.state} {VENUE.zip}
+      </p>
+
+      <div class="fade-rise mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center" style="--reveal-delay: 140ms">
+        <a href={mapsUrl} class="btn-gold" target="_blank" rel="noopener noreferrer">Get Directions</a>
+        <a href={`mailto:${email}`} class="btn-ghost">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</section>

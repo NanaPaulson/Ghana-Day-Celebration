@@ -1,0 +1,105 @@
+---
+import AdinkraSymbol from './AdinkraSymbol.astro';
+import { cultureImages } from '../data/culture-images';
+
+const cards = [
+  {
+    title: 'Fashion Showcase',
+    description: 'Fashion showcases featuring Ghanaian style, regional dress, and heritage on display.',
+    image: cultureImages.northern,
+    imageAlt: 'Northern Ghana fugu smock and traditional handwoven attire',
+    imageWidth: 1920,
+    imageHeight: 1080,
+    icon: 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z',
+  },
+  {
+    title: 'Live Music & Dance',
+    description: 'Cultural performances with traditional and contemporary music and dance exhibitions.',
+    image: cultureImages.ewe,
+    imageAlt: 'Ewe Agbadza drummers and dancers in traditional Volta Region attire',
+    imageWidth: 800,
+    imageHeight: 533,
+    icon: 'M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3',
+  },
+  {
+    title: 'Ghanaian Food',
+    description: 'Jollof, waakye, kelewele, and more from local vendors.',
+    image: cultureImages.food,
+    imageAlt: 'Overhead view of a Ghanaian celebration feast with jollof rice, grilled chicken, waakye, kelewele, fried plantain, grilled tilapia, salad and traditional sauces',
+    imageWidth: 1920,
+    imageHeight: 1080,
+    icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253',
+  },
+  {
+    title: 'Marketplace',
+    description: 'Vendor exhibitions with fabric, jewelry, art, and crafts from Ghanaian-owned businesses.',
+    image: cultureImages.marketplace,
+    imageAlt: 'Regional crafts including Bolga baskets, beads, and northern woven goods at a festival booth',
+    imageWidth: 1920,
+    imageHeight: 1080,
+    icon: 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z',
+  },
+  {
+    title: 'Family Zone',
+    description: 'Youth and family activities so everyone has somewhere to celebrate together.',
+    image: cultureImages.family,
+    imageAlt: 'Families enjoying traditional games and activities at the festival Family Zone',
+    imageWidth: 1920,
+    imageHeight: 1080,
+    icon: 'M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+  },
+  {
+    title: 'Community',
+    description: 'Networking opportunities with the Ghanaian and African diaspora across Florida and beyond.',
+    image: cultureImages.ga,
+    imageAlt: 'Ga community celebrating with traditional Greater Accra dress and dance',
+    imageWidth: 1920,
+    imageHeight: 1080,
+    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
+  },
+];
+---
+
+<section id="what-to-expect" data-header-theme="light" class="section-light relative overflow-x-clip section-padding">
+  <AdinkraSymbol symbol="adinkrahene" class="pointer-events-none absolute right-0 top-24 hidden h-48 w-48 text-ghana-gold opacity-[0.05] md:block" />
+
+  <div class="page-container relative">
+    <p class="eyebrow fade-rise">The Day</p>
+    <h2 class="fade-rise mt-2">What to Expect</h2>
+
+    <div class="mt-8 grid grid-cols-1 gap-5 sm:mt-12 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3" data-stagger>
+      {cards.map((card) => (
+        <article class="expect-card scale-in group overflow-hidden rounded bg-cream-deep shadow-card">
+          {card.image ? (
+            <div class="bg-cream">
+              <img
+                src={card.image}
+                alt={card.imageAlt}
+                width={card.imageWidth}
+                height={card.imageHeight}
+                class="block h-auto w-full"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          ) : (
+            <div class="flex h-40 items-center justify-center bg-cream px-6">
+              <svg class="h-10 w-10 text-ghana-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={card.icon} />
+              </svg>
+            </div>
+          )}
+          <div class="p-4 sm:p-6">
+            {!card.image && (
+              <svg class="mb-4 h-8 w-8 text-ghana-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={card.icon} />
+              </svg>
+            )}
+            <h3 class="text-lg">{card.title}</h3>
+            <p class="mt-2 text-body text-ink/80">{card.description}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,41 @@
+---
+import { cultureRegions } from '../data/culture-images';
+---
+
+<section id="cultures" data-header-theme="light" class="section-light-deep section-padding">
+  <div class="page-container">
+    <div class="mx-auto max-w-3xl text-center">
+      <p class="eyebrow fade-rise">Many Peoples, One Nation</p>
+      <h2 class="fade-rise mt-4 text-ink" style="--reveal-delay: 60ms">
+        Ghana's Regional<br />Cultures Welcome You
+      </h2>
+      <p class="fade-rise mx-auto mt-6 max-w-2xl text-base leading-relaxed text-ink/75" style="--reveal-delay: 100ms">
+        Ghana Day celebrates more than one tradition, from Ga and Fante on the coast, to Ewe in the
+        Volta, to the proud north. Every region brings its own dress, rhythm, and story.
+      </p>
+    </div>
+
+    <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" data-stagger>
+      {cultureRegions.map((region, i) => (
+        <article class="scale-in overflow-hidden rounded border border-ghana-gold/25 bg-cream shadow-card">
+          <div class="aspect-[4/3] overflow-hidden bg-cream-deep">
+            <img
+              src={region.image}
+              alt={`${region.name}, ${region.subtitle}`}
+              width="640"
+              height="480"
+              class="h-full w-full object-cover object-center transition-transform duration-500 hover:scale-[1.03]"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="p-5">
+            <p class="text-[0.65rem] font-semibold uppercase tracking-nav text-ghana-green">{region.subtitle}</p>
+            <h3 class="mt-1 text-lg text-ink">{region.name}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink/70">{region.description}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

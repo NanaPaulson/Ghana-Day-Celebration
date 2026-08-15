@@ -1,0 +1,27 @@
+---
+interface Props {
+  variant?: 1 | 2 | 3;
+  class?: string;
+}
+
+const { variant = 1, class: className = '' } = Astro.props;
+
+const patterns: Record<number, string> = {
+  1: 'repeating-linear-gradient(90deg, #C8102E 0 8px, #F2A900 8px 16px, #006B3F 16px 24px, #F2A900 24px 32px, #C8102E 32px 40px, #006B3F 40px 48px)',
+  2: 'repeating-linear-gradient(90deg, #006B3F 0 6px, #F2A900 6px 12px, #C8102E 12px 20px, #F2A900 20px 28px, #006B3F 28px 34px, #C8102E 34px 42px)',
+  3: 'repeating-linear-gradient(90deg, #F2A900 0 10px, #C8102E 10px 18px, #006B3F 18px 26px, #F2A900 26px 34px, #C8102E 34px 42px, #006B3F 42px 50px)',
+};
+---
+
+<div
+  class={`kente-divider kente-reveal w-full ${className}`}
+  role="presentation"
+  aria-hidden="true"
+  style={`height: 14px; background: ${patterns[variant]}; background-size: 48px 14px;`}
+></div>
+
+<style>
+  .kente-divider {
+    image-rendering: pixelated;
+  }
+</style>

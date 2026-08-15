@@ -1,0 +1,399 @@
+---
+import { mainNav } from '../data/nav';
+import { CONTACT_EMAIL } from '../constants';
+
+const ticketMailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Ghana Day Tickets')}`;
+const logoSrc = `/images/logo.png?v=20260812`;
+---
+
+<header id="site-header" class="site-header fixed inset-x-0 top-0 z-50">
+  <div class="header-surface" aria-hidden="true"></div>
+
+  <div class="header-inner mx-auto flex max-w-7xl items-center gap-3 px-4 sm:px-5 lg:gap-4 lg:px-8">
+    <a
+      href="/"
+      class="brand-lockup flex min-w-0 items-center gap-2 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ghana-gold md:gap-2.5"
+      aria-label="Ghana Day in Tampa Bay, Ghanaian Association of Tampa Bay home"
+    >
+      <span class="header-logo-shell shrink-0" aria-hidden="true">
+        <img
+          src={logoSrc}
+          alt=""
+          width="640"
+          height="640"
+          class="header-logo-mark"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </span>
+      <span class="brand-lockup-text flex min-w-0 flex-col justify-center leading-none">
+        <span class="header-brand-word block font-display text-[0.8125rem] uppercase tracking-wide text-foreground sm:text-sm lg:text-[0.9375rem]">
+          <span class="header-brand-day">Ghana </span><span class="header-brand-gold text-ghana-gold">Day </span><span class="header-brand-day">TB</span>
+        </span>
+        <span class="header-org brand-lockup-org mt-0.5 hidden font-body text-[0.6875rem] font-medium leading-snug text-foreground/82 sm:block lg:text-[0.8125rem]">
+          Ghanaian Association of Tampa Bay
+        </span>
+      </span>
+    </a>
+
+    <nav class="header-nav hidden min-w-0 items-center justify-center gap-3 lg:flex lg:gap-4 lg:pl-2 xl:gap-5" aria-label="Main navigation">
+      {mainNav.map((link) => (
+        <a
+          href={link.href}
+          class="nav-link whitespace-nowrap"
+          data-nav-section={link.sectionId}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="header-actions ml-auto flex shrink-0 items-center gap-2 sm:gap-3">
+      <a href={ticketMailto} class="header-cta btn-gold hidden lg:inline-flex">
+        Get Tickets
+      </a>
+      <button
+        id="menu-toggle"
+        type="button"
+        class="menu-toggle flex h-11 w-11 items-center justify-center rounded border border-foreground/25 bg-dark/40 lg:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Open menu"
+      >
+        <svg class="h-5 w-5 text-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div id="mobile-menu" class="mobile-menu-panel" aria-hidden="true">
+  <div class="mobile-menu-panel__header">
+    <span class="font-display text-sm uppercase tracking-[0.12em] text-foreground">Menu</span>
+    <button
+      id="menu-close"
+      type="button"
+      class="mobile-menu-close flex h-11 w-11 items-center justify-center rounded border border-ghana-gold/40 bg-dark/50"
+      aria-label="Close menu"
+    >
+      <svg class="h-5 w-5 text-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <nav class="mobile-menu-panel__nav" aria-label="Mobile navigation">
+    {mainNav.map((link) => (
+      <a
+        href={link.href}
+        class="mobile-nav-link"
+        data-nav-section={link.sectionId}
+      >
+        {link.label}
+      </a>
+    ))}
+    <a href={ticketMailto} class="mobile-nav-link mobile-nav-cta btn-gold mt-6 w-full text-center">
+      Get Tickets
+    </a>
+  </nav>
+</div>
+
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const menuClose = document.getElementById('menu-close');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileLinks = mobileMenu?.querySelectorAll<HTMLAnchorElement>('.mobile-nav-link');
+  let lastFocused: HTMLElement | null = null;
+
+  function trapFocus(e: KeyboardEvent) {
+    if (!mobileMenu || !mobileMenu.classList.contains('is-open')) return;
+    const focusable = mobileMenu.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled])'
+    );
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (e.key === 'Tab') {
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  }
+
+  function openMenu() {
+    if (!mobileMenu || !menuToggle) return;
+    lastFocused = document.activeElement as HTMLElement;
+    mobileMenu.classList.add('is-open');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    menuToggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    menuClose?.focus();
+    document.addEventListener('keydown', trapFocus);
+  }
+
+  function closeMenu() {
+    if (!mobileMenu || !menuToggle) return;
+    mobileMenu.classList.remove('is-open');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', trapFocus);
+    lastFocused?.focus();
+  }
+
+  menuToggle?.addEventListener('click', openMenu);
+  menuClose?.addEventListener('click', closeMenu);
+  mobileLinks?.forEach((link) => link.addEventListener('click', closeMenu));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu?.classList.contains('is-open')) {
+      closeMenu();
+    }
+  });
+</script>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--color-border-gold);
+    transition:
+      background-color 0.35s ease,
+      border-color 0.35s ease,
+      box-shadow 0.35s ease;
+  }
+
+  .header-surface {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--color-header-bg);
+    transition: background-color 0.35s ease;
+    pointer-events: none;
+  }
+
+  .site-header.is-scrolled .header-surface {
+    background: var(--color-header-bg-scrolled);
+  }
+
+  .site-header.header-light .header-surface {
+    background: var(--color-header-light-bg);
+  }
+
+  .header-inner {
+    position: relative;
+    z-index: 1;
+    min-height: 4.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    transition: min-height 0.35s ease, padding 0.35s ease;
+  }
+
+  @media (min-width: 768px) {
+    .header-inner {
+      min-height: 4.75rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .header-inner {
+      min-height: 6.25rem;
+      padding-top: 0.625rem;
+      padding-bottom: 0.625rem;
+    }
+
+    .site-header.is-scrolled .header-inner {
+      min-height: 5rem;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .brand-lockup {
+      transform: translateX(calc((100vw - 80rem) / -2));
+    }
+  }
+
+  .header-logo-shell {
+    --logo-size: 3.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--logo-size);
+    height: var(--logo-size);
+    border-radius: 9999px;
+    overflow: hidden;
+    background: rgb(14 13 12 / 0.55);
+    border: 1.5px solid var(--color-border-gold-emphasis);
+    box-shadow:
+      0 0 0 1px rgb(0 0 0 / 0.35),
+      0 2px 14px rgb(0 0 0 / 0.45);
+    padding: 0;
+    transition:
+      width 0.35s ease,
+      height 0.35s ease,
+      box-shadow 0.35s ease;
+  }
+
+  @media (min-width: 768px) {
+    .header-logo-shell {
+      --logo-size: 3.75rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .header-logo-shell {
+      --logo-size: 4.75rem;
+    }
+  }
+
+  .site-header.is-scrolled .header-logo-shell {
+    --logo-size: 2.875rem;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.32);
+  }
+
+  @media (min-width: 768px) {
+    .site-header.is-scrolled .header-logo-shell {
+      --logo-size: 3.25rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .site-header.is-scrolled .header-logo-shell {
+      --logo-size: 4rem;
+    }
+  }
+
+  .header-logo-mark {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transform: scale(1.08);
+    filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.35));
+  }
+
+  .site-header.header-light .header-logo-shell {
+    background: rgb(14 13 12 / 0.72);
+    border-color: rgb(242 169 0 / 0.75);
+    box-shadow:
+      0 0 0 1px rgb(26 22 19 / 0.12),
+      0 2px 12px rgb(26 22 19 / 0.22);
+  }
+
+  .site-header.header-light .header-brand-day,
+  .site-header.header-light .header-org {
+    color: var(--color-ink);
+  }
+
+  .site-header.header-light .header-brand-gold {
+    color: var(--color-green);
+  }
+
+  .header-cta {
+    min-height: 2.5rem;
+    padding-left: 1.125rem;
+    padding-right: 1.125rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+  }
+
+  .header-cta:focus-visible {
+    outline: 2px solid var(--color-foreground);
+    outline-offset: 3px;
+  }
+
+  .menu-toggle:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+
+  .mobile-menu-panel {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: var(--color-dark);
+    color: var(--color-foreground);
+    visibility: hidden;
+    transform: translateX(100%);
+    opacity: 0;
+    transition:
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.35s ease,
+      visibility 0.35s;
+  }
+
+  .mobile-menu-panel.is-open {
+    visibility: visible;
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  .mobile-menu-panel__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(242 169 0 / 0.22);
+    padding: 1rem 1.25rem;
+  }
+
+  .mobile-menu-panel__nav {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 1.25rem 1.5rem;
+  }
+
+  .mobile-nav-link {
+    display: flex;
+    min-height: 3.25rem;
+    align-items: center;
+    border-bottom: 1px solid rgb(244 241 234 / 0.08);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgb(244 241 234 / 0.88);
+    transition: color 0.25s ease, padding-left 0.25s ease;
+  }
+
+  .mobile-nav-link:hover,
+  .mobile-nav-link:focus-visible {
+    color: var(--color-gold);
+    padding-left: 0.35rem;
+    outline: none;
+  }
+
+  .mobile-nav-link.is-active {
+    color: var(--color-gold);
+  }
+
+  .mobile-nav-link:focus-visible {
+    box-shadow: inset 0 0 0 2px rgb(242 169 0 / 0.65);
+  }
+
+  .mobile-nav-cta {
+    min-height: 2.75rem;
+    border-bottom: none;
+    justify-content: center;
+    padding-left: 0;
+  }
+
+  .mobile-nav-cta:hover,
+  .mobile-nav-cta:focus-visible {
+    padding-left: 0;
+  }
+
+  .mobile-menu-close:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+</style>

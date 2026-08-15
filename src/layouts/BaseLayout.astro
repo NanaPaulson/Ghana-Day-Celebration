@@ -1,0 +1,86 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { EVENT_NAME, EVENT_START_ISO, ORGANIZATION_NAME, SITE_URL, VENUE, EVENT_DESCRIPTION } from '../constants';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description,
+  ogImage = '/images/og-default.jpg',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, SITE_URL).href;
+const ogImageURL = new URL(ogImage, SITE_URL).href;
+
+const eventJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: EVENT_NAME,
+  alternateName: 'Ghana Day in Tampa Bay',
+  description: EVENT_DESCRIPTION,
+  startDate: EVENT_START_ISO,
+  location: {
+    '@type': 'Place',
+    name: VENUE.name,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: VENUE.street,
+      addressLocality: VENUE.city,
+      addressRegion: VENUE.state,
+      postalCode: VENUE.zip,
+      addressCountry: 'US',
+    },
+  },
+  organizer: {
+    '@type': 'Organization',
+    name: ORGANIZATION_NAME,
+  },
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0E0D0C" />
+    <link rel="icon" type="image/png" href="/favicon.png?v=20260812" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:site_name" content="Ghana Day in Tampa Bay" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
+    <title>{title}</title>
+    <script type="application/ld+json" set:html={JSON.stringify(eventJsonLd)} />
+  </head>
+  <body>
+    <div id="scroll-progress" class="scroll-progress" aria-hidden="true"></div>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      import '../scripts/motion.ts';
+    </script>
+  </body>
+</html>
