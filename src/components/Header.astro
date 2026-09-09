@@ -2,7 +2,7 @@
 import { mainNav } from '../data/nav';
 import { CONTACT_EMAIL } from '../constants';
 
-const ticketMailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Ghana Day Tickets')}`;
+const contactMailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Ghana Day Information')}`;
 const logoSrc = `/images/logo.png?v=20260812`;
 ---
 
@@ -49,8 +49,8 @@ const logoSrc = `/images/logo.png?v=20260812`;
     </nav>
 
     <div class="header-actions ml-auto flex shrink-0 items-center gap-2 sm:gap-3">
-      <a href={ticketMailto} class="header-cta btn-gold hidden lg:inline-flex">
-        Get Tickets
+      <a href={contactMailto} class="header-cta btn-gold hidden lg:inline-flex">
+        Contact the Team
       </a>
       <button
         id="menu-toggle"
@@ -93,8 +93,8 @@ const logoSrc = `/images/logo.png?v=20260812`;
         {link.label}
       </a>
     ))}
-    <a href={ticketMailto} class="mobile-nav-link mobile-nav-cta btn-gold mt-6 w-full text-center">
-      Get Tickets
+    <a href={contactMailto} class="mobile-nav-link mobile-nav-cta btn-gold mt-6 w-full text-center">
+      Contact the Team
     </a>
   </nav>
 </div>
@@ -159,7 +159,7 @@ const logoSrc = `/images/logo.png?v=20260812`;
 
 <style>
   .site-header {
-    border-bottom: 1px solid var(--color-border-gold);
+    border-bottom-color: transparent;
     transition:
       background-color 0.35s ease,
       border-color 0.35s ease,
@@ -170,13 +170,17 @@ const logoSrc = `/images/logo.png?v=20260812`;
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: var(--color-header-bg);
+    background:
+      radial-gradient(circle at 78% 0%, rgb(242 169 0 / 0.1), transparent 30%),
+      var(--color-header-bg);
     transition: background-color 0.35s ease;
     pointer-events: none;
   }
 
   .site-header.is-scrolled .header-surface {
-    background: var(--color-header-bg-scrolled);
+    background:
+      radial-gradient(circle at 78% 0%, rgb(242 169 0 / 0.07), transparent 26%),
+      var(--color-header-bg-scrolled);
   }
 
   .site-header.header-light .header-surface {
@@ -209,6 +213,44 @@ const logoSrc = `/images/logo.png?v=20260812`;
       min-height: 5rem;
       padding-top: 0.5rem;
       padding-bottom: 0.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    .header-inner {
+      gap: 0.65rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .header-logo-shell,
+    .site-header.is-scrolled .header-logo-shell {
+      --logo-size: 3.6rem;
+    }
+
+    .header-org {
+      display: none;
+    }
+
+    .header-brand-word {
+      font-size: 0.8rem;
+    }
+
+    .header-nav {
+      gap: 0.7rem;
+      padding-left: 0;
+    }
+
+    .header-nav .nav-link {
+      font-size: 0.69rem;
+      letter-spacing: 0.035em;
+    }
+
+    .header-cta {
+      min-height: 2.35rem;
+      padding-left: 0.8rem;
+      padding-right: 0.8rem;
+      font-size: 0.66rem;
     }
   }
 
@@ -313,6 +355,13 @@ const logoSrc = `/images/logo.png?v=20260812`;
     outline-offset: 3px;
   }
 
+  .menu-toggle,
+  .mobile-menu-close {
+    border-radius: 2px;
+    border-color: rgb(244 241 234 / 0.22);
+    background: rgb(14 13 12 / 0.72);
+  }
+
   .mobile-menu-panel {
     position: fixed;
     inset: 0;
@@ -321,7 +370,9 @@ const logoSrc = `/images/logo.png?v=20260812`;
     flex-direction: column;
     overflow-x: hidden;
     overflow-y: auto;
-    background: var(--color-dark);
+    background:
+      radial-gradient(circle at 84% 0%, rgb(242 169 0 / 0.1), transparent 28%),
+      linear-gradient(135deg, var(--color-dark), #171615 58%, var(--color-dark));
     color: var(--color-foreground);
     visibility: hidden;
     transform: translateX(100%);

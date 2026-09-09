@@ -20,6 +20,10 @@
     text-size-adjust: 100%;
   }
 
+  html.has-video-modal {
+    overflow: hidden;
+  }
+
   body {
     @apply font-body text-body text-foreground antialiased;
     background-color: var(--color-dark);
@@ -100,9 +104,9 @@
     --color-cream: #faf3e4;
     --color-cream-deep: #f0e4cc;
     --color-dark: #0e0d0c;
-    --color-dark-muted: #252322;
-    --color-dark-card: #141312;
-    --color-dark-border: #302e2c;
+    --color-dark-muted: #171615;
+    --color-dark-card: #151413;
+    --color-dark-border: #363331;
     --color-foreground: #f4f1ea;
 
     /* Semantic surfaces */
@@ -114,8 +118,8 @@
     --color-border-gold-emphasis: rgb(242 169 0 / 0.55);
     --color-gold-muted-bg: rgb(242 169 0 / 0.15);
     --color-gold-soft-bg: rgb(242 169 0 / 0.2);
-    --color-overlay-dark: rgb(14 13 12 / 0.72);
-    --color-overlay-dark-strong: rgb(14 13 12 / 0.82);
+    --color-overlay-dark: rgb(33 29 25 / 0.64);
+    --color-overlay-dark-strong: rgb(33 29 25 / 0.74);
   }
 
   @media (min-width: 768px) {
@@ -273,6 +277,38 @@
     @apply relative overflow-hidden;
   }
 
+  .editorial-section {
+    position: relative;
+    isolation: isolate;
+    background:
+      radial-gradient(circle at 88% 0%, rgb(242 169 0 / 0.08), transparent 24%),
+      linear-gradient(135deg, var(--color-dark), #121110 52%, var(--color-dark));
+  }
+
+  .editorial-section > .page-container {
+    position: relative;
+    z-index: 2;
+  }
+
+  .editorial-section h2 {
+    max-width: 14ch;
+    font-size: clamp(2.25rem, 5vw, 4.5rem);
+    line-height: 0.92;
+  }
+
+  .editorial-section .pulse-card {
+    border-color: rgb(244 241 234 / 0.14);
+    background:
+      linear-gradient(145deg, rgb(244 241 234 / 0.06), transparent 68%),
+      var(--color-dark-card);
+    box-shadow: 0 18px 42px rgb(0 0 0 / 0.16);
+  }
+
+  .editorial-section .pulse-card:hover {
+    border-color: var(--color-border-gold-strong);
+    box-shadow: 0 20px 48px rgb(0 0 0 / 0.24);
+  }
+
   .pulse-card {
     @apply rounded border border-dark-border bg-dark-card p-6 transition-[border-color,transform,box-shadow] duration-300;
   }
@@ -308,7 +344,7 @@
     @apply absolute inset-0 overflow-hidden;
   }
 
-  /* Hero carousel — shared slide visibility */
+  /* Hero carousel, shared slide visibility */
   #hero .home-carousel__slide,
   #hero .hero-slide {
     opacity: 0;
@@ -335,7 +371,7 @@
     }
   }
 
-  /* Hero carousel — mobile only */
+  /* Hero carousel, mobile only */
   @media (max-width: 1023px) {
     #hero .hero-carousel {
       position: absolute;
@@ -405,7 +441,7 @@
     }
   }
 
-  /* Hero carousel — desktop full-width overlay layout */
+  /* Hero carousel, desktop full-width overlay layout */
   @media (min-width: 1024px) {
     #site-header.site-header {
       position: fixed;
@@ -706,7 +742,9 @@
 
   .nav-link::after {
     content: "";
-    @apply absolute bottom-0 left-0 h-0.5 w-full origin-left scale-x-0 transition-transform duration-300 ease-out;
+    @apply absolute -bottom-1 left-1/2 h-1 w-1 origin-center scale-0 rounded-full transition-transform duration-300 ease-out;
+    transform: translateX(-50%);
+    background: var(--color-gold);
   }
 
   .nav-link.is-active {
@@ -714,7 +752,7 @@
   }
 
   .nav-link.is-active::after {
-    transform: scaleX(1);
+    transform: translateX(-50%) scale(1);
   }
 
   .nav-link:focus-visible {

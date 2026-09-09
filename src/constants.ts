@@ -43,8 +43,8 @@ export const VENUE = {
 };
 
 export const SOCIAL = {
-  facebook: 'https://www.facebook.com/GhanaDayInTampaBayOfficial',
-  instagram: 'https://www.instagram.com/GhanaDayInTampaBayOfficial',
-  tiktok: 'https://www.tiktok.com/@GhanaDayInTampaBayOfficial',
+  facebook: 'https://www.facebook.com/share/1DWFR5MSaq/?mibextid=wwXIfr',
+  instagram: 'https://www.instagram.com/reel/DcLNl5Ltc1i/?igsh=eG1ydG5kNnRhdTQw',
+  tiktok: 'https://www.tiktok.com/@ghanadayintampabay?_r=1&_t=ZP-9908RwVXfTD',
   youtube: 'https://www.youtube.com/@GhanaDayInTampaBayOfficial',
 };

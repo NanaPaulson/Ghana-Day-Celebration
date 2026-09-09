@@ -1,62 +1,105 @@
 ---
-import { DEADLINE_PLACEHOLDER, VENDOR_FORM_URL, isPlaceholder } from '../constants';
+import { CONTACT_EMAIL, VENDOR_FORM_URL, isPlaceholder } from '../constants';
 
-const tiers = [
-  {
-    name: 'Food Vendor',
-    price: '$PRICE',
-    includes: ['10×10 ft space', '1 table & 2 chairs', 'Electricity included', 'High-traffic food court area'],
-  },
-  {
-    name: 'Merchandise',
-    price: '$PRICE',
-    includes: ['10×10 ft space', '1 table & 2 chairs', 'Electricity available', 'Marketplace section'],
-  },
-  {
-    name: 'Nonprofit / Community',
-    price: '$PRICE',
-    includes: ['8×8 ft space', '1 table & 2 chairs', 'No electricity', 'Community outreach area'],
-  },
-];
+const packages = [
+  { name: 'Presenting', price: '$10,000', label: 'Exclusive', highlights: ['Premier logo placement', 'Opening ceremony recognition', 'Premium vendor booth', '10 VIP tickets', 'Full-page program premium', 'Speaking opportunity'] },
+  { name: 'Platinum', price: '$7,500', label: 'Premier', highlights: ['Premier logo placement', 'Opening ceremony recognition', 'Premium vendor booth', '8 VIP tickets', 'Full-page program recognition', 'Premium social recognition'] },
+  { name: 'Gold', price: '$5,000', label: 'Large', highlights: ['Large logo placement', 'Opening ceremony recognition', 'Premium vendor booth', '6 VIP tickets', 'Half-page program recognition', 'Social media recognition'] },
+  { name: 'Silver', price: '$2,500', label: 'Medium', highlights: ['Medium logo placement', 'Standard vendor booth', '4 VIP tickets', 'Quarter-page program recognition', 'Social media recognition'] },
+  { name: 'Bronze', price: '$1,000', label: 'Small', highlights: ['Name listing', 'Standard vendor booth', '2 VIP tickets', 'Name mention on social media'] },
+] as const;
+
+const sponsorMailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Corporate Sponsorship Inquiry')}`;
+const vendorMailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Vendor Application Inquiry')}`;
 ---
 
-<section id="vendors" data-header-theme="dark" class="section-dark section-padding">
-  <div class="page-container">
-    <p class="pulse-eyebrow fade-rise">Vendors</p>
-    <h2 class="fade-rise mt-4 text-foreground">Sell at Ghana Day</h2>
-    <p class="fade-rise mt-4 max-w-2xl text-base leading-relaxed text-foreground/75">
-      Ghana Day in Tampa Bay 2026 is expected to attract attendees from across Florida and neighboring
-      states. Vendor exhibitions put your business in front of an engaged community that values
-      authentic culture, Ghanaian entrepreneurship, and quality.
-    </p>
+<section id="vendors" data-header-theme="dark" class="section-dark section-padding editorial-section vendor-section">
+  <div class="vendor-section__word" aria-hidden="true">PARTNER</div>
 
-    <div class="mt-12 grid gap-6 sm:grid-cols-2 md:grid-cols-3" data-stagger>
-      {tiers.map((tier) => (
-        <article class="pulse-card scale-in transition-[border-color,transform,box-shadow] duration-300 hover:-translate-y-1">
-          <h3 class="text-lg text-foreground">{tier.name}</h3>
-          <p class="mt-2 font-display text-2xl text-ghana-gold">{tier.price}</p>
-          <ul class="mt-4 space-y-2 text-sm text-foreground/75">
-            {tier.includes.map((item) => (
-              <li class="flex items-start gap-2">
-                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ghana-gold" aria-hidden="true"></span>
-                {item}
-              </li>
+  <div class="page-container relative z-10">
+    <header class="vendor-section__intro fade-rise">
+      <div>
+        <p class="pulse-eyebrow">Build the celebration</p>
+        <h2 class="mt-4 text-foreground">Put your name<br /><span>in the story.</span></h2>
+      </div>
+      <p class="vendor-section__lead text-base leading-relaxed text-foreground/75 md:text-lg">
+        Ghana Day brings families, founders, cultural organizations, and community leaders together.
+        Choose a package that puts your organization in the middle of that conversation.
+      </p>
+    </header>
+
+    <div class="vendor-section__rule fade-rise" style="--reveal-delay: 100ms">
+      <span>Corporate sponsorship packages</span>
+      <span>Maximum sponsorship: $10,000</span>
+    </div>
+
+    <div class="vendor-packages" data-stagger>
+      {packages.map((packageItem, index) => (
+        <article class:list={['vendor-package', 'fade-rise', { 'vendor-package--featured': index === 0 }]} style={`--reveal-delay: ${index * 65}ms`}>
+          <div class="vendor-package__topline"><span>0{index + 1}</span><span>{packageItem.label}</span></div>
+          <h3>{packageItem.name}</h3>
+          <p class="vendor-package__price">{packageItem.price}</p>
+          <ul>
+            {packageItem.highlights.map((highlight) => (
+              <li><span aria-hidden="true">+</span>{highlight}</li>
             ))}
           </ul>
         </article>
       ))}
     </div>
 
-    <p class="fade-rise mt-8 font-semibold text-ghana-gold">
-      Application deadline: {isPlaceholder(DEADLINE_PLACEHOLDER) ? 'To be announced' : DEADLINE_PLACEHOLDER}
-    </p>
-
-    {isPlaceholder(VENDOR_FORM_URL) ? (
-      <p class="fade-rise mt-6 text-foreground/70">Vendor applications opening soon.</p>
-    ) : (
-      <a href={VENDOR_FORM_URL} class="btn-gold fade-rise mt-6 inline-flex sm:w-auto" target="_blank" rel="noopener noreferrer">
-        Apply for a Booth
-      </a>
-    )}
+    <div class="vendor-section__actions fade-rise" style="--reveal-delay: 360ms">
+      <div>
+        <p class="pulse-eyebrow">Ready to be visible?</p>
+        <p class="mt-2 text-sm leading-relaxed text-foreground/65">Contact the team for the complete benefits matrix, availability, and next steps.</p>
+      </div>
+      <div class="vendor-section__buttons">
+        <a href={sponsorMailto} class="btn-gold">Talk About Sponsorship</a>
+        {isPlaceholder(VENDOR_FORM_URL) ? (
+          <a href={vendorMailto} class="btn-ghost">Ask About Vendor Space</a>
+        ) : (
+          <a href={VENDOR_FORM_URL} class="btn-ghost" target="_blank" rel="noopener noreferrer">Apply as a Vendor</a>
+        )}
+      </div>
+    </div>
   </div>
 </section>
+
+<style>
+  .vendor-section { position: relative; isolation: isolate; }
+  .vendor-section__word { position: absolute; right: -0.04em; bottom: -0.08em; z-index: 0; color: transparent; font-family: var(--font-display); font-size: clamp(8rem, 21vw, 22rem); font-weight: 900; line-height: 0.7; letter-spacing: -0.08em; -webkit-text-stroke: 1px rgb(244 241 234 / 0.06); pointer-events: none; }
+  .vendor-section__intro { display: grid; gap: 2rem; align-items: end; }
+  .vendor-section__intro h2 { max-width: 9ch; font-size: clamp(3.2rem, 7vw, 6.5rem); line-height: 0.8; }
+  .vendor-section__intro h2 span { color: var(--color-gold); }
+  .vendor-section__lead { max-width: 31rem; }
+  .vendor-section__rule { display: flex; justify-content: space-between; gap: 1rem; margin-top: clamp(3rem, 6vw, 5rem); padding-block: 1rem; border-top: 1px solid rgb(244 241 234 / 0.2); border-bottom: 1px solid rgb(244 241 234 / 0.12); color: rgb(244 241 234 / 0.55); font-size: 0.62rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; }
+  .vendor-section__rule span:last-child { color: var(--color-gold); }
+  .vendor-packages { display: grid; gap: 1rem; margin-top: 1rem; }
+  .vendor-package { position: relative; display: grid; grid-template-columns: 3rem 1fr auto; gap: 1rem; align-items: start; min-width: 0; padding: 1.35rem; border: 1px solid rgb(244 241 234 / 0.14); background: linear-gradient(105deg, rgb(244 241 234 / 0.06), transparent 55%), var(--color-dark-card); transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; }
+  .vendor-package:hover { border-color: var(--color-border-gold-strong); transform: translateY(-2px); box-shadow: 0 18px 38px rgb(0 0 0 / 0.22); }
+  .vendor-package--featured { border-color: rgb(200 16 46 / 0.72); background: linear-gradient(105deg, rgb(200 16 46 / 0.16), transparent 55%), var(--color-dark-card); }
+  .vendor-package__topline { display: flex; flex-direction: column; gap: 0.3rem; color: var(--color-gold); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+  .vendor-package__topline span:first-child { color: rgb(244 241 234 / 0.42); font-family: var(--font-display); font-size: 0.82rem; }
+  .vendor-package h3 { color: var(--color-foreground); font-size: clamp(1.4rem, 2.4vw, 2rem); line-height: 1; }
+  .vendor-package__price { color: var(--color-gold); font-family: var(--font-display); font-size: clamp(1.55rem, 2.8vw, 2.25rem); line-height: 1; white-space: nowrap; }
+  .vendor-package ul { display: grid; grid-column: 1 / -1; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem 1.25rem; padding-top: 1.1rem; border-top: 1px solid rgb(244 241 234 / 0.12); }
+  .vendor-package li { display: flex; gap: 0.5rem; color: rgb(244 241 234 / 0.76); font-size: 0.84rem; line-height: 1.4; }
+  .vendor-package li span { color: var(--color-gold); font-weight: 800; }
+  .vendor-section__actions { display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-top: 3rem; padding: 1.5rem; border-left: 3px solid var(--color-gold); background: rgb(244 241 234 / 0.05); }
+  .vendor-section__buttons { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  @media (min-width: 768px) {
+    .vendor-section__intro { grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.65fr); }
+    .vendor-packages { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .vendor-package--featured { grid-column: 1 / -1; grid-template-columns: 4rem 1fr auto; padding: 1.75rem; }
+    .vendor-package--featured h3 { font-size: clamp(1.8rem, 3vw, 2.7rem); }
+    .vendor-package--featured .vendor-package__price { font-size: clamp(2rem, 3.5vw, 3rem); }
+    .vendor-package--featured ul { grid-column: 2 / -1; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @media (max-width: 767px) {
+    .vendor-section__rule, .vendor-section__actions { align-items: flex-start; flex-direction: column; }
+    .vendor-package { grid-template-columns: 2.25rem 1fr auto; gap: 0.75rem; padding: 1.15rem; }
+    .vendor-package ul { grid-template-columns: 1fr; }
+    .vendor-package li { font-size: 0.82rem; }
+    .vendor-section__buttons, .vendor-section__buttons a { width: 100%; }
+  }
+</style>

@@ -14,9 +14,9 @@ export default {
         cream: '#FAF3E4',
         'cream-deep': '#F0E4CC',
         dark: '#0E0D0C',
-        'dark-card': '#141312',
-        'dark-muted': '#252322',
-        'dark-border': '#302E2C',
+        'dark-card': '#151413',
+        'dark-muted': '#171615',
+        'dark-border': '#363331',
         foreground: '#F4F1EA',
         /* Pulse aliases — same values as Ghana tokens for uniform UI */
         'pulse-gold': '#F2A900',

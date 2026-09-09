@@ -3,38 +3,178 @@ import { cultureImages } from '../data/culture-images';
 import { marketplaceItems } from '../data/pulse';
 ---
 
-<section id="marketplace" data-header-theme="dark" class="pulse-section relative min-h-[70vh]">
+<section id="marketplace" data-header-theme="dark" class="pulse-section relative min-h-[70vh] editorial-section marketplace-section">
   <div class="section-bg-image" aria-hidden="true">
     <img src={cultureImages.marketplace} alt="" width="1920" height="1080" loading="lazy" decoding="async" />
-    <div class="absolute inset-0 bg-gradient-to-b from-dark/90 via-dark/85 to-dark"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-dark/80 via-dark/70 to-dark/88"></div>
   </div>
+  <div class="marketplace-art" aria-hidden="true">CRAFT</div>
 
   <div class="relative z-10 section-padding page-container">
-    <div class="mx-auto max-w-3xl text-center">
+    <div class="marketplace-layout">
+      <header class="marketplace-heading">
       <p class="pulse-eyebrow fade-rise">Handcrafted with Pride</p>
-      <h2 class="fade-rise mt-4 text-foreground" style="--reveal-delay: 60ms">Shop Ghana</h2>
-      <p class="fade-rise mx-auto mt-6 max-w-2xl text-base leading-relaxed text-foreground/70" style="--reveal-delay: 100ms">
-        Every item is a piece of Ghana, woven, carved, dyed, and shaped by the hands of master
-        artisans. Take home more than a souvenir; take home a legacy.
-      </p>
-    </div>
+        <h2 class="fade-rise mt-4 text-foreground" style="--reveal-delay: 60ms">Shop Ghana</h2>
+        <p class="fade-rise mt-6 max-w-md text-base leading-relaxed text-foreground/75 md:text-lg" style="--reveal-delay: 100ms">
+          Every item is a piece of Ghana, woven, carved, dyed, and shaped by the hands of master
+          artisans. Take home more than a souvenir; take home a legacy.
+        </p>
+        <div class="marketplace-heading__note fade-rise" style="--reveal-delay: 140ms">
+          <span>Festival marketplace</span>
+          <span>{String(marketplaceItems.length).padStart(2, '0')} / featured finds</span>
+        </div>
+      </header>
 
-    <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {marketplaceItems.map((item, i) => (
-        <article class="pulse-card fade-rise" style={`--reveal-delay: ${i * 70}ms`}>
-          <p class="text-[0.65rem] font-semibold uppercase tracking-nav text-ghana-gold">{item.category}</p>
-          <h3 class="mt-3 text-lg text-foreground">{item.title}</h3>
-          <p class="mt-2 text-sm leading-relaxed text-foreground/65">{item.description}</p>
-          <p class="mt-4 text-[0.65rem] font-semibold uppercase tracking-nav text-foreground/45">
-            Available at Festival
-          </p>
-        </article>
-      ))}
+      <div class="marketplace-grid" data-stagger>
+        {marketplaceItems.map((item, i) => (
+          <article class="marketplace-card pulse-card fade-rise" style={`--reveal-delay: ${i * 70}ms`}>
+            <div class="marketplace-card__top">
+              <span>{String(i + 1).padStart(2, '0')}</span>
+              <p>{item.category}</p>
+            </div>
+            <h3 class="mt-5 text-lg text-foreground md:text-xl">{item.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-foreground/70">{item.description}</p>
+            <p class="marketplace-card__footer">Available at festival</p>
+          </article>
+        ))}
+      </div>
     </div>
   </div>
 </section>
 
 <style>
+  .marketplace-section {
+    isolation: isolate;
+  }
+
+  .marketplace-art {
+    position: absolute;
+    right: -0.04em;
+    bottom: -0.12em;
+    z-index: 1;
+    color: transparent;
+    font-family: var(--font-display);
+    font-size: clamp(9rem, 23vw, 24rem);
+    font-weight: 900;
+    line-height: 0.7;
+    letter-spacing: -0.08em;
+    -webkit-text-stroke: 1px rgb(244 241 234 / 0.08);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .marketplace-layout {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  .marketplace-heading {
+    max-width: 34rem;
+  }
+
+  .marketplace-heading h2 {
+    max-width: 7ch;
+    font-size: clamp(3.4rem, 8vw, 7rem);
+    line-height: 0.8;
+  }
+
+  .marketplace-heading__note {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgb(244 241 234 / 0.2);
+    color: rgb(244 241 234 / 0.5);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .marketplace-heading__note span:last-child {
+    color: var(--color-gold);
+  }
+
+  .marketplace-grid {
+    display: grid;
+    gap: 0.75rem;
+    grid-auto-rows: minmax(12.5rem, auto);
+  }
+
+  .marketplace-card {
+    display: flex;
+    min-height: 12.5rem;
+    flex-direction: column;
+    padding: 1.35rem;
+    border-color: rgb(244 241 234 / 0.16);
+    background:
+      linear-gradient(145deg, rgb(244 241 234 / 0.07), transparent 72%),
+      rgb(14 13 12 / 0.88);
+  }
+
+  .marketplace-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .marketplace-card__top > span {
+    color: var(--color-gold);
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+  }
+
+  .marketplace-card__top p {
+    color: var(--color-gold);
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .marketplace-card__footer {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    color: rgb(244 241 234 / 0.42);
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  @media (min-width: 768px) {
+    .marketplace-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .marketplace-layout {
+      grid-template-columns: minmax(17rem, 0.72fr) minmax(0, 1.28fr);
+      gap: clamp(3rem, 7vw, 8rem);
+    }
+
+    .marketplace-grid {
+      gap: 1rem;
+    }
+
+    .marketplace-section .section-padding {
+      padding-bottom: clamp(6rem, 10vw, 10rem);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .marketplace-art {
+      bottom: 0;
+      font-size: 8rem;
+    }
+  }
+
   #marketplace .section-bg-image > img {
     max-width: none;
     width: 100%;

@@ -11,13 +11,15 @@ export const cultureImages = {
   family: '/images/gallery/family-cultural.jpg',
   food: '/images/gallery/ghana-celebration-meal.jpg',
   music: '/images/gallery/music-regional.jpg',
+  welcomeCommunity: '/images/gallery/welcome-carousel-ghanaian-community-2560x1440.webp',
+  welcomeDrummers: '/images/gallery/welcome-carousel-ghanaian-drummers-2560x1440.webp',
   independenceSquare: '/images/gallery/hero-carousel-black-star-square-ai-mobile-1600x900.webp',
-  /** Desktop 24:7 art — composed from independenceSquare (same photograph). */
+  /** Desktop 24:7 art, composed from independenceSquare (same photograph). */
   independenceSquareDesktop: '/images/gallery/hero-carousel-black-star-square-ai-4800x1400.webp',
   flagstaffHouse: '/images/gallery/hero-carousel-flagstaff-house-ai-mobile-1600x900.webp',
-  /** Desktop 24:7 art — full-height scene from flagstaffHouse (same photograph). */
+  /** Desktop 24:7 art, full-height scene from flagstaffHouse (same photograph). */
   flagstaffHouseDesktop: '/images/gallery/hero-carousel-flagstaff-house-ai-4800x1400.webp',
-  /** Desktop 24:7 art — full-height scene from kwameNkrumahStatue (same photograph). */
+  /** Desktop 24:7 art, full-height scene from kwameNkrumahStatue (same photograph). */
   kwameNkrumahStatueDesktop: '/images/gallery/hero-carousel-nkrumah-park-ai-4800x1400.webp',
 } as const;
 
@@ -61,19 +63,19 @@ export const welcomeCarouselSlides = [
     objectPosition: '50% 40%',
   },
   {
-    src: cultureImages.ewe,
-    alt: 'Ewe Agbadza drummers and dancers in traditional Volta Region attire',
-    objectPosition: '58% 32%',
+    src: cultureImages.family,
+    alt: 'Ghanaian family enjoying traditional games together at a community cultural festival',
+    objectPosition: '50% 50%',
   },
   {
-    src: cultureImages.independenceSquare,
-    alt: 'Independence Square and Black Star Arch in Accra, Ghana',
-    objectPosition: '50% 45%',
+    src: cultureImages.welcomeCommunity,
+    alt: 'Ghanaian community members celebrating together in traditional clothing',
+    objectPosition: '50% 50%',
   },
   {
-    src: cultureImages.kwameNkrumahStatue,
-    alt: 'Bronze statue of Kwame Nkrumah at the Kwame Nkrumah Memorial Park in Accra, Ghana',
-    objectPosition: '50% 35%',
+    src: cultureImages.welcomeDrummers,
+    alt: 'Ghanaian traditional drummers performing at a community celebration',
+    objectPosition: '50% 50%',
   },
 ] as const;
 

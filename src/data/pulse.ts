@@ -11,7 +11,7 @@ export const pulseNav = [
 export const pulseStats = [
   { value: '2026', label: 'Inaugural Year' },
   { value: '1', label: 'Epic Day' },
-  { value: '∞', label: 'Memories' },
+  { value: '', label: 'Dwennimmen', symbol: 'dwennimmen' },
 ] as const;
 
 /** Welcome carousel: text panels synced with background images. */
@@ -56,7 +56,7 @@ export const welcomeSlides = [
     stats: [
       { value: '1957', label: 'Independence' },
       { value: '1st', label: 'Free Nation' },
-      { value: '★', label: 'Black Star' },
+      { value: '', label: 'Adinkrahene', symbol: 'adinkrahene' },
     ],
   },
   {
@@ -73,7 +73,7 @@ export const welcomeSlides = [
     stats: [
       { value: '1471', label: 'Gold Coast Era' },
       { value: '100+', label: 'Clans' },
-      { value: '∞', label: 'Traditions' },
+      { value: '', label: 'Gye Nyame', symbol: 'gye-nyame' },
     ],
   },
 ] as const;
@@ -85,6 +85,14 @@ export const foodItems = [
   'Waakye',
   'Fufu',
   'Grilled Tilapia',
+  'Attiéké',
+  'Kenkey',
+  'Red Red',
+  'Tuo Zaafi',
+  'Omo Tuo',
+  'Ampesi',
+  'Kontomire Stew',
+  'Groundnut Soup',
 ] as const;
 
 export const musicGenres = [
@@ -194,6 +202,11 @@ export const marketplaceItems = [
     description: 'Handwoven indigo-and-white cloth from the Volta Region',
   },
   {
+    category: 'Textiles',
+    title: 'Kente Cloth',
+    description: 'Vibrant handwoven cloth rich with history, symbolism, and Ghanaian identity',
+  },
+  {
     category: 'Jewelry',
     title: 'Glass Bead Jewelry',
     description: 'Krobo beads crafted through ancient powder-glass techniques',
@@ -212,11 +225,6 @@ export const marketplaceItems = [
     category: 'Beauty',
     title: 'Shea Butter',
     description: 'Pure, unrefined shea from the savannahs of the north',
-  },
-  {
-    category: 'Basketry',
-    title: 'Bolga Baskets',
-    description: 'Vibrant handwoven baskets from the Upper East Region',
   },
 ] as const;
 

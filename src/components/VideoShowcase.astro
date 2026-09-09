@@ -1,0 +1,803 @@
+---
+import AdinkraSymbol from './AdinkraSymbol.astro';
+
+const videos = [
+  {
+    id: 'promotional',
+    src: '/videos/Promotional%20Video.mp4',
+    duration: '00:41',
+    eyebrow: 'Official Festival Film',
+    title: 'Ghana Day in Motion',
+    description: 'A vibrant preview of the culture, energy, fashion, music, and community coming to Tampa Bay.',
+    symbol: 'gye-nyame',
+  },
+  {
+    id: 'president-message',
+    src: '/videos/Intro%20Message%20From%20the%20President.mp4',
+    duration: '01:18',
+    eyebrow: 'A Personal Welcome',
+    title: 'Message from the President',
+    description: 'Hear the vision and invitation behind Ghana Day directly from the Association’s president.',
+    symbol: 'adinkrahene',
+  },
+] as const;
+---
+
+<section id="videos" data-header-theme="dark" class="video-showcase pulse-section">
+  <div class="video-showcase__art" aria-hidden="true">
+    <span>WATCH</span>
+    <div class="video-showcase__ring video-showcase__ring--one"></div>
+    <div class="video-showcase__ring video-showcase__ring--two"></div>
+  </div>
+
+  <div class="video-showcase__shell section-padding">
+    <div class="video-showcase__layout">
+      <header class="video-showcase__intro">
+        <p class="video-showcase__eyebrow">
+          <span aria-hidden="true"></span>
+          Stories in Motion
+        </p>
+
+        <h2 class="video-showcase__heading">
+          See the<br />
+          <span>Culture.</span><br />
+          Feel the<br />
+          <em>Moment.</em>
+        </h2>
+
+        <p class="video-showcase__lead">
+          Step inside the vision for Ghana Day in Tampa Bay through our official festival film and a
+          personal welcome from the Association’s president.
+        </p>
+
+        <div class="video-showcase__note">
+          <span class="video-showcase__note-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M8 5v14l11-7L8 5Z" fill="currentColor"></path>
+            </svg>
+          </span>
+          <div>
+            <strong>Two stories</strong>
+            <span>Choose a story to watch</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="video-showcase__reels">
+        {videos.map((video, index) => (
+          <article class:list={['video-story', `video-story--${video.id}`]}>
+            <div class="video-story__frame">
+              <button
+                type="button"
+                class="video-story__cover"
+                data-video-open
+                data-video-src={video.src}
+                data-video-title={video.title}
+                data-video-description={video.description}
+                aria-label={`Open ${video.title} video`}
+              >
+                <span class="video-story__texture" aria-hidden="true"></span>
+                <span class="video-story__symbol" aria-hidden="true">
+                  <AdinkraSymbol symbol={video.symbol} class="h-full w-full" />
+                </span>
+
+                <span class="video-story__cover-top">
+                  <span>{video.eyebrow}</span>
+                  <span>{video.duration}</span>
+                </span>
+
+                <span class="video-story__cover-copy">
+                  <span class="video-story__index">Film / 0{index + 1}</span>
+                  <strong>{video.title}</strong>
+                </span>
+
+                <span class="video-story__play">
+                  <span class="video-story__play-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M8 5v14l11-7L8 5Z" fill="currentColor"></path>
+                    </svg>
+                  </span>
+                  <span>Play film</span>
+                </span>
+              </button>
+
+            </div>
+
+            <div class="video-story__caption">
+              <span class="video-story__caption-number">0{index + 1}</span>
+              <div>
+                <h3>{video.title}</h3>
+                <p>{video.description}</p>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <dialog class="video-modal" data-video-modal aria-labelledby="video-modal-title" aria-describedby="video-modal-description">
+    <div class="video-modal__panel">
+      <header class="video-modal__header">
+        <div>
+          <span>Now playing</span>
+          <h3 id="video-modal-title" data-video-modal-title>Ghana Day in Motion</h3>
+        </div>
+        <button type="button" class="video-modal__close" data-video-close aria-label="Close video">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+          </svg>
+        </button>
+      </header>
+
+      <div class="video-modal__stage">
+        <video data-video-modal-player controls playsinline preload="none">
+          Your browser does not support HTML video.
+        </video>
+        <div class="video-modal__error" data-video-modal-error role="status" hidden>
+          This video could not be loaded. Please refresh and try again.
+        </div>
+      </div>
+
+      <p id="video-modal-description" class="video-modal__description" data-video-modal-description></p>
+    </div>
+  </dialog>
+</section>
+
+<script>
+  const modal = document.querySelector<HTMLDialogElement>('[data-video-modal]');
+  const modalVideo = modal?.querySelector<HTMLVideoElement>('[data-video-modal-player]');
+  const modalTitle = modal?.querySelector<HTMLElement>('[data-video-modal-title]');
+  const modalDescription = modal?.querySelector<HTMLElement>('[data-video-modal-description]');
+  const modalError = modal?.querySelector<HTMLElement>('[data-video-modal-error]');
+  const closeButton = modal?.querySelector<HTMLButtonElement>('[data-video-close]');
+  const openButtons = document.querySelectorAll<HTMLButtonElement>('[data-video-open]');
+  let opener: HTMLButtonElement | null = null;
+  let activeVideoSrc = '';
+
+  const closeModal = () => {
+    if (!modal?.open) return;
+    modal.close();
+  };
+
+  const resetVideo = () => {
+    if (!modalVideo) return;
+    activeVideoSrc = '';
+    if (modalError) modalError.hidden = true;
+    modalVideo.pause();
+    modalVideo.removeAttribute('src');
+    modalVideo.load();
+  };
+
+  openButtons.forEach((button) => {
+    button.addEventListener('click', async () => {
+      if (!modal || !modalVideo || !modalTitle || !modalDescription) return;
+
+      const { videoSrc, videoTitle, videoDescription } = button.dataset;
+      if (!videoSrc || !videoTitle) return;
+
+      opener = button;
+      modalTitle.textContent = videoTitle;
+      modalDescription.textContent = videoDescription ?? '';
+      if (modalError) modalError.hidden = true;
+      activeVideoSrc = new URL(videoSrc, window.location.href).href;
+      modalVideo.src = activeVideoSrc;
+      modal.showModal();
+      document.documentElement.classList.add('has-video-modal');
+
+      try {
+        await modalVideo.play();
+      } catch {
+        // Native controls remain available when autoplay is blocked.
+      }
+    });
+  });
+
+  closeButton?.addEventListener('click', closeModal);
+
+  modal?.addEventListener('click', (event) => {
+    if (event.target === modal) closeModal();
+  });
+
+  modal?.addEventListener('close', () => {
+    resetVideo();
+    document.documentElement.classList.remove('has-video-modal');
+    opener?.focus();
+  });
+
+  modalVideo?.addEventListener('loadeddata', () => {
+    if (modalError) modalError.hidden = true;
+  });
+
+  modalVideo?.addEventListener('error', () => {
+    const failedSource = modalVideo.currentSrc;
+
+    window.setTimeout(() => {
+      const isCurrentFailure =
+        modal?.open &&
+        activeVideoSrc !== '' &&
+        failedSource === activeVideoSrc &&
+        modalVideo.currentSrc === activeVideoSrc &&
+        modalVideo.error !== null;
+
+      if (modalError && isCurrentFailure) modalError.hidden = false;
+    }, 150);
+  });
+</script>
+
+<style>
+  .video-showcase {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    color: var(--color-foreground);
+    background:
+      radial-gradient(circle at 92% 12%, rgb(242 169 0 / 0.13), transparent 27%),
+      radial-gradient(circle at 7% 90%, rgb(0 107 63 / 0.13), transparent 29%),
+      var(--color-dark);
+  }
+
+  .video-showcase::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.3;
+    background-image:
+      linear-gradient(30deg, rgb(244 241 234 / 0.045) 12%, transparent 12.5%, transparent 87%, rgb(244 241 234 / 0.045) 87.5%),
+      linear-gradient(150deg, rgb(244 241 234 / 0.045) 12%, transparent 12.5%, transparent 87%, rgb(244 241 234 / 0.045) 87.5%);
+    background-size: 80px 140px;
+    mask-image: linear-gradient(90deg, black, transparent 45%, black);
+  }
+
+  .video-showcase__art {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .video-showcase__art > span {
+    position: absolute;
+    left: -0.04em;
+    bottom: -0.12em;
+    color: transparent;
+    font-family: var(--font-display);
+    font-size: clamp(10rem, 25vw, 30rem);
+    font-weight: 900;
+    line-height: 0.72;
+    letter-spacing: -0.08em;
+    -webkit-text-stroke: 1px rgb(244 241 234 / 0.08);
+    white-space: nowrap;
+  }
+
+  .video-showcase__ring {
+    position: absolute;
+    border: 1px solid rgb(200 16 46 / 0.15);
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 30px rgb(200 16 46 / 0.025),
+      0 0 0 60px rgb(200 16 46 / 0.018);
+  }
+
+  .video-showcase__ring--one {
+    top: -180px;
+    right: -130px;
+    width: 420px;
+    height: 420px;
+  }
+
+  .video-showcase__ring--two {
+    bottom: -220px;
+    left: 22%;
+    width: 360px;
+    height: 360px;
+    border-color: rgb(0 107 63 / 0.16);
+  }
+
+  .video-showcase__shell {
+    position: relative;
+    z-index: 2;
+    width: min(100%, 1380px);
+    margin-inline: auto;
+  }
+
+  .video-showcase__layout {
+    display: grid;
+    gap: clamp(3rem, 6vw, 7rem);
+    align-items: center;
+  }
+
+  .video-showcase__intro {
+    max-width: 520px;
+  }
+
+  .video-showcase__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--color-green);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+
+  .video-showcase__eyebrow > span {
+    width: 44px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-red) 0 33%, var(--color-gold) 33% 66%, var(--color-green) 66%);
+  }
+
+  .video-showcase__heading {
+    margin-top: 1.5rem;
+    font-size: clamp(3.2rem, 6vw, 6.8rem);
+    line-height: 0.78;
+    letter-spacing: -0.055em;
+  }
+
+  .video-showcase__heading span {
+    color: var(--color-red);
+  }
+
+  .video-showcase__heading em {
+    color: transparent;
+    font-style: normal;
+    -webkit-text-stroke: 1.5px var(--color-green);
+  }
+
+  .video-showcase__lead {
+    max-width: 470px;
+    margin-top: 2rem;
+    padding-left: 1.25rem;
+    border-left: 3px solid var(--color-gold);
+    color: rgb(244 241 234 / 0.72);
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    line-height: 1.75;
+  }
+
+  .video-showcase__note {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-top: 2rem;
+  }
+
+  .video-showcase__note-icon {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    color: var(--color-cream);
+    border-radius: 50%;
+    background: var(--color-green);
+  }
+
+  .video-showcase__note-icon svg {
+    width: 16px;
+    height: 16px;
+    margin-left: 2px;
+  }
+
+  .video-showcase__note div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .video-showcase__note strong {
+    color: var(--color-foreground);
+    font-size: 0.76rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .video-showcase__note div span {
+    margin-top: 0.15rem;
+    color: rgb(244 241 234 / 0.58);
+    font-size: 0.78rem;
+  }
+
+  .video-showcase__reels {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 2.2vw, 2rem);
+    align-items: start;
+  }
+
+  .video-story:nth-child(2) {
+    margin-top: clamp(2.5rem, 6vw, 6rem);
+  }
+
+  .video-story__frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 464 / 832;
+    overflow: hidden;
+    color: var(--color-foreground);
+    border: 1px solid rgb(244 241 234 / 0.16);
+    border-radius: 1rem;
+    background: #100d0a;
+    box-shadow: 0 28px 65px rgb(26 22 19 / 0.24);
+  }
+
+  .video-story__frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+    pointer-events: none;
+    border: 1px solid rgb(255 255 255 / 0.15);
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 5px rgb(0 0 0 / 0.1);
+  }
+
+  .video-story__cover {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: clamp(1.25rem, 2vw, 2rem);
+    overflow: hidden;
+    color: var(--color-foreground);
+    text-align: left;
+    border: 0;
+    background:
+      radial-gradient(circle at 72% 26%, rgb(242 169 0 / 0.25), transparent 30%),
+      linear-gradient(155deg, #17120e, #2a1e12 58%, #0c0907);
+    cursor: pointer;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .video-story--president-message .video-story__cover {
+    background:
+      radial-gradient(circle at 28% 72%, rgb(242 169 0 / 0.2), transparent 32%),
+      linear-gradient(155deg, #07291a, #0c422c 56%, #071b13);
+  }
+
+  .video-story__texture {
+    position: absolute;
+    inset: 0;
+    opacity: 0.24;
+    background-image:
+      linear-gradient(30deg, rgb(255 255 255 / 0.1) 12%, transparent 12.5%, transparent 87%, rgb(255 255 255 / 0.1) 87.5%),
+      linear-gradient(150deg, rgb(255 255 255 / 0.1) 12%, transparent 12.5%, transparent 87%, rgb(255 255 255 / 0.1) 87.5%);
+    background-size: 50px 88px;
+    mask-image: linear-gradient(to bottom, black, transparent 78%);
+  }
+
+  .video-story__symbol {
+    position: absolute;
+    top: 17%;
+    left: 50%;
+    width: 68%;
+    aspect-ratio: 1;
+    color: rgb(242 169 0 / 0.24);
+    transform: translateX(-50%);
+    filter: drop-shadow(0 12px 30px rgb(0 0 0 / 0.25));
+  }
+
+  .video-story--president-message .video-story__symbol {
+    color: rgb(244 241 234 / 0.16);
+  }
+
+  .video-story__cover-top {
+    position: absolute;
+    inset: clamp(1.25rem, 2vw, 2rem) clamp(1.25rem, 2vw, 2rem) auto;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .video-story__cover-top > span:last-child {
+    color: var(--color-gold);
+  }
+
+  .video-story__cover-copy {
+    position: absolute;
+    left: clamp(1.25rem, 2vw, 2rem);
+    right: clamp(1.25rem, 2vw, 2rem);
+    bottom: 8rem;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .video-story__index {
+    color: var(--color-gold);
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .video-story__cover-copy strong {
+    max-width: 9ch;
+    margin-top: 0.65rem;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 2.6vw, 3rem);
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+  }
+
+  .video-story__play {
+    position: absolute;
+    left: clamp(1.25rem, 2vw, 2rem);
+    bottom: clamp(1.25rem, 2vw, 2rem);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .video-story__play-icon {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    color: var(--color-ink);
+    border-radius: 50%;
+    background: var(--color-gold);
+    box-shadow: 0 0 0 8px rgb(242 169 0 / 0.13);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .video-story__play-icon svg {
+    width: 18px;
+    height: 18px;
+    margin-left: 3px;
+  }
+
+  .video-story__cover:hover .video-story__play-icon {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 12px rgb(242 169 0 / 0.13);
+  }
+
+  .video-story__cover:focus-visible {
+    outline: 3px solid var(--color-gold);
+    outline-offset: -6px;
+  }
+
+  .video-story__caption {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.9rem;
+    margin-top: 1.25rem;
+  }
+
+  .video-story__caption-number {
+    color: var(--color-red);
+    font-family: var(--font-display);
+    font-size: 0.76rem;
+  }
+
+  .video-story:nth-child(2) .video-story__caption-number {
+    color: var(--color-green);
+  }
+
+  .video-story__caption h3 {
+    color: var(--color-ink);
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
+    line-height: 1.05;
+  }
+
+  .video-story__caption p {
+    margin-top: 0.55rem;
+    color: rgb(26 22 19 / 0.62);
+    font-size: 0.82rem;
+    line-height: 1.55;
+  }
+
+  .video-modal {
+    width: min(94vw, 68rem);
+    max-width: none;
+    max-height: 94dvh;
+    margin: auto;
+    padding: 0;
+    overflow: visible;
+    color: var(--color-foreground);
+    border: 1px solid rgb(242 169 0 / 0.38);
+    border-radius: 1rem;
+    background: transparent;
+    box-shadow: 0 35px 100px rgb(0 0 0 / 0.65);
+  }
+
+  .video-modal::backdrop {
+    background: rgb(5 4 3 / 0.88);
+    backdrop-filter: blur(10px);
+  }
+
+  .video-modal[open] {
+    animation: video-modal-enter 0.28s ease-out;
+  }
+
+  .video-modal__panel {
+    overflow: hidden;
+    border-radius: inherit;
+    background:
+      radial-gradient(circle at 90% 0%, rgb(242 169 0 / 0.14), transparent 30%),
+      #12100e;
+  }
+
+  .video-modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1rem 1rem 0.9rem 1.25rem;
+    border-bottom: 1px solid rgb(244 241 234 / 0.1);
+  }
+
+  .video-modal__header > div {
+    min-width: 0;
+  }
+
+  .video-modal__header span {
+    display: block;
+    color: var(--color-gold);
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .video-modal__header h3 {
+    margin-top: 0.25rem;
+    overflow: hidden;
+    font-size: clamp(1rem, 2.2vw, 1.45rem);
+    line-height: 1.1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .video-modal__close {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 2.75rem;
+    height: 2.75rem;
+    color: var(--color-foreground);
+    border: 1px solid rgb(244 241 234 / 0.24);
+    border-radius: 50%;
+    background: rgb(244 241 234 / 0.06);
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .video-modal__close:hover {
+    color: var(--color-gold);
+    border-color: var(--color-gold);
+    transform: rotate(4deg);
+  }
+
+  .video-modal__close:focus-visible {
+    outline: 3px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+
+  .video-modal__close svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .video-modal__stage {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 18rem;
+    max-height: calc(94dvh - 9rem);
+    background: #050505;
+  }
+
+  .video-modal__stage video {
+    display: block;
+    width: 100%;
+    height: min(72dvh, 49rem);
+    object-fit: contain;
+    background: #050505;
+  }
+
+  .video-modal__error {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: 2rem;
+    color: var(--color-foreground);
+    text-align: center;
+    background: #100d0a;
+  }
+
+  .video-modal__error[hidden] {
+    display: none;
+  }
+
+  .video-modal__description {
+    margin: 0;
+    padding: 0.9rem 1.25rem 1rem;
+    color: rgb(244 241 234 / 0.68);
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
+  @keyframes video-modal-enter {
+    from {
+      opacity: 0;
+      transform: translateY(1rem) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .video-showcase__layout {
+      grid-template-columns: minmax(330px, 0.78fr) minmax(0, 1.22fr);
+    }
+
+    .video-showcase__intro {
+      position: sticky;
+      top: calc(var(--site-header-height) + 2rem);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .video-showcase__reels {
+      width: min(100%, 520px);
+      margin-inline: auto;
+    }
+
+    .video-showcase__heading {
+      font-size: clamp(3.2rem, 15vw, 5.2rem);
+    }
+  }
+
+  @media (max-width: 559px) {
+    .video-showcase__reels {
+      grid-template-columns: 1fr;
+      width: min(100%, 360px);
+    }
+
+    .video-story:nth-child(2) {
+      margin-top: 1.5rem;
+    }
+
+    .video-story__cover-copy strong {
+      font-size: clamp(2.5rem, 12vw, 3.5rem);
+    }
+
+    .video-modal {
+      width: calc(100vw - 1rem);
+      max-height: 96dvh;
+    }
+
+    .video-modal__stage video {
+      height: min(72dvh, 42rem);
+    }
+
+    .video-modal__description {
+      font-size: 0.75rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .video-story__cover,
+    .video-story__play-icon,
+    .video-modal[open] {
+      transition: none;
+      animation: none;
+    }
+  }
+</style>

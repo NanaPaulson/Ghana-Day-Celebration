@@ -4,7 +4,7 @@ import { CONTACT_EMAIL, EVENT_DATE, isPlaceholder, ORGANIZATION_NAME, SOCIAL, VE
 import SocialIcon from './SocialIcon.astro';
 
 const email = isPlaceholder(CONTACT_EMAIL) ? 'info@ghanadaytb.com' : CONTACT_EMAIL;
-const ticketMailto = `mailto:${email}?subject=${encodeURIComponent('Ghana Day Tickets')}`;
+const contactMailto = `mailto:${email}?subject=${encodeURIComponent('Ghana Day Information')}`;
 
 const socialLinks = [
   { href: SOCIAL.facebook, label: 'Facebook', platform: 'facebook' as const },
@@ -14,8 +14,6 @@ const socialLinks = [
 ];
 
 const legalLinks = [
-  { href: '#', label: 'Privacy Policy' },
-  { href: '#', label: 'Terms of Service' },
   { href: '#getting-there', label: 'Accessibility' },
 ];
 ---
@@ -24,6 +22,17 @@ const legalLinks = [
   <div class="site-footer__accent" aria-hidden="true"></div>
 
   <div class="section-padding page-container pb-10 pt-14 sm:pb-12 sm:pt-16 md:pt-20">
+    <div class="footer-lead">
+      <div>
+        <p class="pulse-eyebrow">Ghana Day in Tampa Bay 2026</p>
+        <h2>One day.<br /><span>One great celebration.</span></h2>
+      </div>
+      <div class="footer-lead__details">
+        <p>{EVENT_DATE}</p>
+        <p>{VENUE.name} · {VENUE.city}, {VENUE.state}</p>
+      </div>
+    </div>
+
     <div class="grid grid-cols-1 gap-12 text-center md:grid-cols-2 md:gap-x-12 md:gap-y-14 md:text-left lg:grid-cols-3 lg:gap-16">
       <div class="md:max-w-sm lg:max-w-none">
         <p class="font-display text-base uppercase tracking-wide text-foreground sm:text-lg">
@@ -78,8 +87,8 @@ const legalLinks = [
           ))}
         </ul>
         <div class="mt-8 flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap lg:justify-start">
-          <a href={ticketMailto} class="btn-gold w-full sm:w-auto">
-            Get Tickets
+          <a href={contactMailto} class="btn-gold w-full sm:w-auto">
+            Contact the Team
           </a>
           <a href="#vendors" class="btn-vendor-dark footer-vendor-btn w-full sm:w-auto">
             Become a Vendor
@@ -141,6 +150,58 @@ const legalLinks = [
       rgb(242 169 0 / 0.55) 50%,
       transparent 100%
     );
+  }
+
+  .footer-lead {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-bottom: clamp(2.5rem, 5vw, 4.5rem);
+    border-bottom: 1px solid rgb(244 241 234 / 0.14);
+  }
+
+  .footer-lead h2 {
+    max-width: 10ch;
+    margin-top: 1rem;
+    color: var(--color-foreground);
+    font-size: clamp(2.75rem, 6vw, 6rem);
+    line-height: 0.82;
+  }
+
+  .footer-lead h2 span {
+    color: var(--color-gold);
+  }
+
+  .footer-lead__details {
+    max-width: 16rem;
+    padding-bottom: 0.25rem;
+    color: rgb(244 241 234 / 0.58);
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    line-height: 1.7;
+    text-align: right;
+    text-transform: uppercase;
+  }
+
+  .footer-lead__details p:first-child {
+    color: var(--color-gold);
+  }
+
+  .footer-lead + .grid {
+    margin-top: clamp(2.5rem, 5vw, 4.5rem);
+  }
+
+  @media (max-width: 639px) {
+    .footer-lead {
+      display: block;
+    }
+
+    .footer-lead__details {
+      margin-top: 1.5rem;
+      text-align: left;
+    }
   }
 
   .footer-vendor-btn {

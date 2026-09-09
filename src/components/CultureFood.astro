@@ -1,48 +1,582 @@
 ---
 import { cultureImages } from '../data/culture-images';
 import { foodItems } from '../data/pulse';
+
+const foodImageAlt =
+  'Overhead view of a Ghanaian celebration feast with jollof rice, grilled chicken, waakye, kelewele, fried plantain, grilled tilapia, salad, and traditional sauces';
 ---
 
-<section id="culture" data-header-theme="dark" class="pulse-section relative min-h-[70vh]">
-  <div class="section-bg-image" aria-hidden="true">
-    <img src={cultureImages.food} alt="" width="1920" height="1080" loading="lazy" decoding="async" />
-    <div class="absolute inset-0 bg-gradient-to-r from-dark/95 via-dark/80 to-dark/50"></div>
+<section id="culture" data-header-theme="light" class="food-story pulse-section">
+  <div class="food-story__art" aria-hidden="true">
+    <span>TASTE</span>
+    <div class="food-story__sun"></div>
   </div>
 
-  <div class="relative z-10 section-padding page-container">
-    <div class="grid items-center gap-12 lg:grid-cols-2">
-      <div class="fade-rise">
-        <p class="pulse-eyebrow">Taste Ghana</p>
-        <h2 class="mt-4 text-foreground">
-          A Feast for the <span class="text-ghana-gold">Soul.</span>
+  <div class="food-story__shell section-padding">
+    <header class="food-story__header fade-rise">
+      <div>
+        <p class="food-story__eyebrow">
+          <span aria-hidden="true"></span>
+          Taste Ghana
+        </p>
+        <h2>
+          A Feast for<br />
+          <em>the Soul.</em>
         </h2>
-        <p class="mt-6 text-base leading-relaxed text-foreground/75">
-          From the legendary Jollof Rice, Ghana's undisputed champion, to the spicy crunch of
-          Kelewele and the smoky richness of grilled Tilapia, every dish tells a story of tradition
-          passed through generations.
-        </p>
-        <p class="mt-4 text-base leading-relaxed text-foreground/65">
-          Experience authentic Ghanaian flavors prepared by Tampa Bay's finest Ghanaian chefs and food
-          artisans. Your taste buds are in for a cultural awakening.
-        </p>
       </div>
 
-      <div class="fade-rise flex flex-wrap gap-3" style="--reveal-delay: 100ms">
-        {foodItems.map((item) => (
-          <span class="rounded border border-dark-border bg-dark-card/80 px-4 py-2 text-xs font-semibold uppercase tracking-nav text-foreground/80 backdrop-blur-sm">
-            {item}
-          </span>
-        ))}
+      <p class="food-story__standfirst">
+        Every plate is an invitation to gather, to remember, and to discover Ghana through flavor.
+      </p>
+    </header>
+
+    <div class="food-story__feature">
+      <figure class="food-story__visual fade-rise" style="--reveal-delay: 80ms">
+        <div class="food-story__image-wrap">
+          <img
+            src={cultureImages.food}
+            alt={foodImageAlt}
+            width="1920"
+            height="1080"
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="food-story__image-shade" aria-hidden="true"></div>
+
+          <div class="food-story__plate-label">
+            <span>01</span>
+            <strong>The Ghanaian Table</strong>
+          </div>
+
+          <div class="food-story__image-note">
+            <span>Made with heritage</span>
+            <span aria-hidden="true">✦</span>
+            <span>Shared with joy</span>
+          </div>
+        </div>
+
+        <figcaption>
+          <span>From Accra to Tampa Bay</span>
+          <span>One table. Many stories.</span>
+        </figcaption>
+      </figure>
+
+      <article class="food-story__narrative fade-rise" style="--reveal-delay: 150ms">
+        <p class="food-story__chapter">More than a meal</p>
+        <h3>Tradition you can taste.</h3>
+
+        <p>
+          From legendary Jollof Rice to the spicy crunch of Kelewele and the smoky richness of
+          grilled Tilapia, every dish carries a story passed from one generation to the next.
+        </p>
+        <p>
+          Tampa Bay’s Ghanaian chefs and food artisans bring those stories to life, cooking with
+          memory, generosity, and the unmistakable warmth of home.
+        </p>
+
+        <div class="food-story__promise">
+          <div>
+            <span class="food-story__promise-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 3c-2.6 3.1-5.7 6.2-5.7 10.1a5.7 5.7 0 1 0 11.4 0C17.7 9.2 14.6 6.1 12 3Z" stroke="currentColor" stroke-width="1.5"></path>
+                <path d="M9.7 15.4c.6 1.1 1.5 1.7 2.8 1.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+              </svg>
+            </span>
+            <span><strong>Bold flavors</strong>Spice, smoke, and soul</span>
+          </div>
+          <div>
+            <span class="food-story__promise-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 11.5h16M6.5 11.5a5.5 5.5 0 0 1 11 0M3 15h18M5.5 19h13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                <path d="M12 4.5V3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+              </svg>
+            </span>
+            <span><strong>Community made</strong>Prepared here in Tampa Bay</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="food-story__menu fade-rise" style="--reveal-delay: 220ms">
+      <div class="food-story__menu-heading">
+        <p>Explore the spread</p>
+        <h3>On the table</h3>
+        <span>{foodItems.length} Ghanaian favorites</span>
       </div>
+
+      <ol class="food-story__menu-grid">
+        {foodItems.map((item, index) => (
+          <li>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <strong>{item}</strong>
+          </li>
+        ))}
+      </ol>
     </div>
   </div>
 </section>
 
 <style>
-  #culture .section-bg-image > img {
-    max-width: none;
+  .food-story {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    color: var(--color-foreground);
+    background:
+      radial-gradient(circle at 92% 5%, rgb(242 169 0 / 0.16), transparent 24%),
+      linear-gradient(135deg, #0e0d0c, var(--color-dark) 48%, #171310);
+  }
+
+  .food-story::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.22;
+    background-image:
+      linear-gradient(30deg, rgb(244 241 234 / 0.045) 12%, transparent 12.5%, transparent 87%, rgb(244 241 234 / 0.045) 87.5%),
+      linear-gradient(150deg, rgb(244 241 234 / 0.045) 12%, transparent 12.5%, transparent 87%, rgb(244 241 234 / 0.045) 87.5%);
+    background-size: 74px 130px;
+    mask-image: linear-gradient(to bottom, black, transparent 38%, black);
+  }
+
+  .food-story__art {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .food-story__art > span {
+    position: absolute;
+    right: -0.03em;
+    top: 0.1em;
+    color: transparent;
+    font-family: var(--font-display);
+    font-size: clamp(9rem, 23vw, 25rem);
+    font-weight: 900;
+    line-height: 0.75;
+    letter-spacing: -0.08em;
+    -webkit-text-stroke: 1px rgb(244 241 234 / 0.08);
+  }
+
+  .food-story__sun {
+    position: absolute;
+    top: -13rem;
+    right: -10rem;
+    width: 28rem;
+    height: 28rem;
+    border: 1px solid rgb(200 16 46 / 0.16);
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 2.4rem rgb(200 16 46 / 0.025),
+      0 0 0 4.8rem rgb(242 169 0 / 0.025);
+  }
+
+  .food-story__shell {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 1380px);
+    margin-inline: auto;
+  }
+
+  .food-story__header {
+    display: grid;
+    gap: 2rem;
+    align-items: end;
+    margin-bottom: clamp(2.5rem, 5vw, 5rem);
+  }
+
+  .food-story__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--color-green);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+
+  .food-story__eyebrow > span {
+    width: 44px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-red) 0 33%, var(--color-gold) 33% 66%, var(--color-green) 66%);
+  }
+
+  .food-story__header h2 {
+    margin-top: 1rem;
+    color: var(--color-foreground);
+    font-size: clamp(3.8rem, 8vw, 8rem);
+    line-height: 0.78;
+    letter-spacing: -0.06em;
+  }
+
+  .food-story__header h2 em {
+    color: var(--color-red);
+    font-style: normal;
+  }
+
+  .food-story__standfirst {
+    max-width: 34rem;
+    padding-left: 1.25rem;
+    border-left: 3px solid var(--color-gold);
+    color: rgb(244 241 234 / 0.72);
+    font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+    line-height: 1.55;
+  }
+
+  .food-story__feature {
+    display: grid;
+    gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: center;
+  }
+
+  .food-story__visual {
+    min-width: 0;
+    margin: 0;
+  }
+
+  .food-story__image-wrap {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-radius: 0 5rem 0 0;
+    background: #241910;
+    box-shadow: 0 28px 70px rgb(50 34 19 / 0.28);
+  }
+
+  .food-story__image-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border: 1px solid rgb(255 255 255 / 0.24);
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 6px rgb(0 0 0 / 0.08);
+  }
+
+  .food-story__image-wrap img {
+    display: block;
     width: 100%;
     height: 100%;
+    max-width: none;
     object-fit: cover;
+    object-position: center;
+    transform: scale(1.015);
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .food-story__visual:hover img {
+    transform: scale(1.05);
+  }
+
+  .food-story__image-shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgb(12 8 5 / 0.72), transparent 42%);
+  }
+
+  .food-story__plate-label {
+    position: absolute;
+    top: 1.25rem;
+    left: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.7rem 0.9rem;
+    color: var(--color-ink);
+    background: var(--color-gold);
+    box-shadow: 8px 8px 0 rgb(200 16 46 / 0.82);
+  }
+
+  .food-story__plate-label span {
+    padding-right: 0.8rem;
+    border-right: 1px solid rgb(26 22 19 / 0.35);
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+  }
+
+  .food-story__plate-label strong {
+    font-size: 0.67rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .food-story__image-note {
+    position: absolute;
+    right: 1.25rem;
+    bottom: 1.15rem;
+    left: 1.25rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    color: rgb(255 255 255 / 0.9);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+
+  .food-story__image-note span:nth-child(2) {
+    color: var(--color-gold);
+  }
+
+  .food-story__visual figcaption {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 0.9rem;
+    color: rgb(244 241 234 / 0.58);
+    font-size: 0.67rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .food-story__narrative {
+    max-width: 34rem;
+  }
+
+  .food-story__chapter {
+    color: var(--color-red);
+    font-size: 0.67rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .food-story__narrative h3 {
+    max-width: 9ch;
+    margin-top: 0.8rem;
+    color: var(--color-foreground);
+    font-size: clamp(2.2rem, 4.2vw, 4.8rem);
+    line-height: 0.92;
+    letter-spacing: -0.045em;
+  }
+
+  .food-story__narrative > p:not(.food-story__chapter) {
+    margin-top: 1.4rem;
+    color: rgb(244 241 234 / 0.72);
+    font-size: clamp(0.95rem, 1.3vw, 1.08rem);
+    line-height: 1.72;
+  }
+
+  .food-story__promise {
+    display: grid;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgb(244 241 234 / 0.18);
+  }
+
+  .food-story__promise > div {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .food-story__promise-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 2.6rem;
+    height: 2.6rem;
+    color: var(--color-foreground);
+    border-radius: 50%;
+    background: var(--color-green);
+  }
+
+  .food-story__promise-icon svg {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  .food-story__promise > div > span:last-child {
+    display: flex;
+    flex-direction: column;
+    color: rgb(244 241 234 / 0.58);
+    font-size: 0.74rem;
+    line-height: 1.4;
+  }
+
+  .food-story__promise strong {
+    color: var(--color-foreground);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .food-story__menu {
+    position: relative;
+    display: grid;
+    gap: 2rem;
+    margin-top: clamp(3.5rem, 7vw, 7rem);
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    color: var(--color-foreground);
+    border-top: 5px solid var(--color-gold);
+    background:
+      linear-gradient(120deg, rgb(0 107 63 / 0.22), transparent 38%),
+      var(--color-dark);
+    box-shadow: 0 25px 60px rgb(26 22 19 / 0.2);
+  }
+
+  .food-story__menu::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    right: 0;
+    width: 28%;
+    height: 5px;
+    background: var(--color-red);
+  }
+
+  .food-story__menu-heading p {
+    color: var(--color-gold);
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .food-story__menu-heading h3 {
+    margin-top: 0.4rem;
+    font-size: clamp(1.8rem, 3vw, 3.2rem);
+    line-height: 0.95;
+  }
+
+  .food-story__menu-heading > span {
+    display: block;
+    margin-top: 0.65rem;
+    color: rgb(244 241 234 / 0.48);
+    font-size: 0.7rem;
+  }
+
+  .food-story__menu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .food-story__menu-grid li {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    gap: 0.55rem;
+    align-items: baseline;
+    min-width: 0;
+    padding: 0.75rem 0.5rem 0.75rem 0;
+    border-bottom: 1px solid rgb(244 241 234 / 0.1);
+  }
+
+  .food-story__menu-grid li:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
+
+  .food-story__menu-grid li > span {
+    color: var(--color-gold);
+    font-family: var(--font-display);
+    font-size: 0.61rem;
+  }
+
+  .food-story__menu-grid strong {
+    overflow-wrap: anywhere;
+    font-size: 0.68rem;
+    letter-spacing: 0.07em;
+    line-height: 1.35;
+    text-transform: uppercase;
+  }
+
+  @media (min-width: 640px) {
+    .food-story__promise {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .food-story__menu-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .food-story__menu-grid li:nth-last-child(-n + 2) {
+      border-bottom: 1px solid rgb(244 241 234 / 0.1);
+    }
+
+    .food-story__menu-grid li:nth-last-child(-n + 3) {
+      border-bottom: 0;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .food-story__header {
+      grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.65fr);
+    }
+
+    .food-story__menu {
+      grid-template-columns: minmax(11rem, 0.28fr) minmax(0, 1fr);
+      align-items: center;
+    }
+
+    .food-story__menu-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .food-story__menu-grid li:nth-last-child(-n + 3) {
+      border-bottom: 1px solid rgb(244 241 234 / 0.1);
+    }
+
+    .food-story__menu-grid li:nth-last-child(-n + 2) {
+      border-bottom: 0;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .food-story__feature {
+      grid-template-columns: minmax(0, 1.25fr) minmax(21rem, 0.75fr);
+    }
+
+    .food-story__menu-grid {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .food-story__menu-grid li:nth-last-child(-n + 2) {
+      border-bottom: 1px solid rgb(244 241 234 / 0.1);
+    }
+
+    .food-story__menu-grid li:nth-last-child(-n + 4) {
+      border-bottom: 0;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .food-story__header h2 {
+      font-size: clamp(3.6rem, 18vw, 5.5rem);
+    }
+
+    .food-story__image-wrap {
+      aspect-ratio: 4 / 5;
+      border-radius: 0 3rem 0 0;
+    }
+
+    .food-story__image-wrap img {
+      object-position: 58% center;
+    }
+
+    .food-story__image-note {
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 0.45rem 0.65rem;
+    }
+
+    .food-story__visual figcaption {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .food-story__image-wrap img {
+      transition: none;
+    }
   }
 </style>

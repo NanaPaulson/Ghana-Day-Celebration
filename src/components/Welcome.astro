@@ -1,7 +1,7 @@
 ---
 import { welcomeCarouselSlides } from '../data/culture-images';
 import { welcomeSlides } from '../data/pulse';
-import { EVENT_DATE, VENUE } from '../constants';
+import AdinkraSymbol from './AdinkraSymbol.astro';
 
 const slideCount = welcomeSlides.length;
 ---
@@ -64,24 +64,11 @@ const slideCount = welcomeSlides.length;
 
             <p class="welcome-body mt-6 text-foreground sm:mt-8">{slide.body[0]}</p>
 
-            <p class="welcome-body mt-5 text-foreground sm:mt-6">
-              {slide.id === 'homecoming' ? (
-                <>
-                  Join us on <span class="text-ghana-gold font-semibold">{EVENT_DATE}</span>, at{' '}
-                  <span class="text-ghana-gold font-semibold">{VENUE.name}</span> in Tampa, Florida.
-                  We welcome attendees from across Florida and neighboring states to celebrate Ghanaian
-                  culture, cuisine, music, fashion, and community together.
-                </>
-              ) : (
-                slide.body[1]
-              )}
-            </p>
-
             <div class="welcome-stats mt-10 grid grid-cols-1 gap-4 sm:mt-12 md:grid-cols-3 md:gap-5">
               {slide.stats.map((stat) => (
                 <div class="text-center">
-                  <p
-                    class="font-display text-ghana-gold welcome-stat-value"
+                  <div
+                    class="font-display text-ghana-gold welcome-stat-value flex items-center justify-center"
                     data-count-up={
                       slide.id === 'homecoming' && stat.value === '2026'
                         ? '2026'
@@ -91,8 +78,16 @@ const slideCount = welcomeSlides.length;
                     }
                     data-count-start={stat.value === '1' ? '0' : stat.value === '2026' ? '2018' : undefined}
                   >
-                    {stat.value}
-                  </p>
+                    {'symbol' in stat && stat.symbol === 'gye-nyame' ? (
+                      <AdinkraSymbol symbol="gye-nyame" class="h-[1em] w-[1em] text-ghana-gold" />
+                    ) : 'symbol' in stat && stat.symbol === 'adinkrahene' ? (
+                      <AdinkraSymbol symbol="adinkrahene" class="h-[1em] w-[1em] text-ghana-gold" />
+                    ) : 'symbol' in stat && stat.symbol === 'dwennimmen' ? (
+                      <AdinkraSymbol symbol="dwennimmen" class="h-[1em] w-[1em] text-ghana-gold" />
+                    ) : (
+                      stat.value
+                    )}
+                  </div>
                   <p class="welcome-stat-label mt-1.5 text-foreground/85 sm:mt-2">{stat.label}</p>
                 </div>
               ))}
@@ -187,7 +182,7 @@ const slideCount = welcomeSlides.length;
     position: absolute;
     inset: 0;
     z-index: 2;
-    background-color: rgba(0, 0, 0, 0.62);
+    background-color: rgba(16, 13, 10, 0.4);
     pointer-events: none;
   }
 
@@ -199,17 +194,17 @@ const slideCount = welcomeSlides.length;
     background:
       linear-gradient(
         180deg,
-        rgba(0, 0, 0, 0.55) 0%,
-        rgba(0, 0, 0, 0.35) 18%,
-        rgba(0, 0, 0, 0.82) 42%,
-        rgba(0, 0, 0, 0.88) 58%,
-        rgba(0, 0, 0, 0.35) 82%,
-        rgba(0, 0, 0, 0.55) 100%
+        rgba(16, 13, 10, 0.42) 0%,
+        rgba(16, 13, 10, 0.2) 18%,
+        rgba(16, 13, 10, 0.62) 42%,
+        rgba(16, 13, 10, 0.68) 58%,
+        rgba(16, 13, 10, 0.22) 82%,
+        rgba(16, 13, 10, 0.4) 100%
       ),
       radial-gradient(
         ellipse 90% 75% at 50% 48%,
-        rgba(0, 0, 0, 0.72) 0%,
-        rgba(0, 0, 0, 0.45) 55%,
+        rgba(16, 13, 10, 0.58) 0%,
+        rgba(16, 13, 10, 0.32) 55%,
         transparent 100%
       );
   }
