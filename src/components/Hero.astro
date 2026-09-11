@@ -200,6 +200,12 @@ import { EVENT_ALT_NAME, EVENT_DATE, EVENT_START_ISO, EVENT_TIME, VENUE } from '
     background: var(--color-dark);
   }
 
+  .hero-section.is-official-banner .home-carousel__content,
+  .hero-section.is-official-banner .home-carousel__overlay {
+    visibility: hidden;
+    opacity: 0;
+  }
+
   @media (max-width: 1023px) {
     .hero-visual {
       aspect-ratio: 16 / 9;

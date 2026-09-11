@@ -14,6 +14,7 @@ export function initImageCarousels() {
 
     const intervalMs = Number(carousel.dataset.interval) || 5000;
     const section = carousel.closest('section');
+    const contentOverlay = section?.querySelector<HTMLElement>('.home-carousel__content');
     const indicators = section
       ? Array.from(section.querySelectorAll<HTMLButtonElement>('[data-hero-go]'))
       : [];
@@ -35,6 +36,9 @@ export function initImageCarousels() {
         dot.classList.toggle('is-active', i === index);
         dot.setAttribute('aria-current', i === index ? 'true' : 'false');
       });
+      const isOfficialBanner = slides[index]?.dataset.slideId === 'official-banner';
+      section?.classList.toggle('is-official-banner', isOfficialBanner);
+      contentOverlay?.setAttribute('aria-hidden', isOfficialBanner ? 'true' : 'false');
       current = index;
     };
 
