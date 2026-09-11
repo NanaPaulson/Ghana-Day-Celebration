@@ -1,5 +1,4 @@
 ---
-import { scheduleItems } from '../data/pulse';
 import { EVENT_DATE, VENUE } from '../constants';
 ---
 
@@ -9,34 +8,51 @@ import { EVENT_DATE, VENUE } from '../constants';
       <p class="pulse-eyebrow fade-rise">Plan Your Day</p>
       <h2 class="fade-rise mt-4 text-foreground" style="--reveal-delay: 60ms">Activities for the Day</h2>
       <p class="fade-rise mx-auto mt-6 max-w-2xl text-base leading-relaxed text-foreground/70" style="--reveal-delay: 100ms">
-        {EVENT_DATE}, a full day of cultural performances, music, dance, cuisine, fashion, vendor
-        exhibitions, youth and family activities, and community networking at {VENUE.name}, {VENUE.city}.
+        Activities and programming for {EVENT_DATE} at {VENUE.name}, {VENUE.city} are being finalized.
       </p>
     </div>
 
-    <ol class="relative mx-auto mt-14 max-w-3xl space-y-0 border-l-2 border-ghana-gold/35 pl-6 md:border-l-0 md:pl-0">
-      <div class="absolute bottom-0 left-24 top-0 hidden w-px bg-ghana-gold/35 md:block" aria-hidden="true"></div>
-
-      {scheduleItems.map((item, i) => (
-        <li
-          class="fade-rise relative grid gap-4 border-b border-foreground/10 py-8 md:grid-cols-[5.5rem_1fr] md:gap-8"
-          style={`--reveal-delay: ${i * 60}ms`}
-        >
-          <span
-            class="timeline-marker absolute -left-[calc(0.75rem+1px)] top-[2.125rem] h-2.5 w-2.5 rounded-full bg-ghana-gold md:hidden"
-            aria-hidden="true"
-          ></span>
-          <div class="md:text-right">
-            <p class="font-display text-sm text-ghana-gold md:text-base">{item.time}</p>
-            <p class="mt-1 text-[0.6rem] font-semibold uppercase tracking-nav text-foreground/45">{item.category}</p>
-          </div>
-          <div>
-            <h3 class="text-lg text-foreground">{item.title}</h3>
-            <p class="mt-2 text-sm leading-relaxed text-foreground/70">{item.description}</p>
-          </div>
-        </li>
-      ))}
-    </ol>
+    <div class="schedule-coming-soon fade-rise mx-auto mt-14 max-w-3xl" style="--reveal-delay: 140ms">
+      <span class="schedule-coming-soon__line" aria-hidden="true"></span>
+      <p class="schedule-coming-soon__label">Coming Soon</p>
+      <p class="schedule-coming-soon__copy">The full program will be announced once the day’s activities are confirmed.</p>
+      <span class="schedule-coming-soon__line" aria-hidden="true"></span>
+    </div>
 
   </div>
 </section>
+
+<style>
+  .schedule-coming-soon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: clamp(2.5rem, 6vw, 4.5rem) 1.5rem;
+    border-top: 1px solid rgb(242 169 0 / 0.3);
+    border-bottom: 1px solid rgb(242 169 0 / 0.3);
+    text-align: center;
+    background: linear-gradient(135deg, rgb(242 169 0 / 0.08), rgb(14 13 12 / 0.2));
+  }
+
+  .schedule-coming-soon__line {
+    width: 3rem;
+    height: 2px;
+    background: var(--color-gold);
+  }
+
+  .schedule-coming-soon__label {
+    color: var(--color-gold);
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3vw, 2.25rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .schedule-coming-soon__copy {
+    max-width: 30rem;
+    color: rgb(244 241 234 / 0.7);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+</style>
