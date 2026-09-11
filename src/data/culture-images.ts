@@ -76,11 +76,6 @@ export const welcomeCarouselSlides = [
     objectPosition: '50% 50%',
   },
   {
-    src: cultureImages.welcomeCommunity,
-    alt: 'Ghanaian community members celebrating together in traditional clothing',
-    objectPosition: '50% 50%',
-  },
-  {
     src: cultureImages.welcomeDrummers,
     alt: 'Ghanaian traditional drummers performing at a community celebration',
     objectPosition: '50% 50%',
