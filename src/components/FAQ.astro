@@ -10,7 +10,7 @@ const items = await Promise.all(
 );
 ---
 
-<section id="faq" data-header-theme="dark" class="section-dark section-padding editorial-section">
+<section id="faq" data-header-theme="dark" class="section-padding editorial-section faq-section">
   <div class="page-container mx-auto max-w-3xl">
     <p class="pulse-eyebrow fade-rise">Questions</p>
     <h2 class="fade-rise mt-4 text-foreground">FAQs</h2>
@@ -32,3 +32,25 @@ const items = await Promise.all(
     </div>
   </div>
 </section>
+
+<style>
+  .faq-section {
+    color: var(--color-dark);
+    background: #fff;
+  }
+
+  .faq-section h2,
+  .faq-section summary {
+    color: var(--color-dark);
+  }
+
+  .faq-section .faq-item {
+    border-color: rgb(14 13 12 / 0.14);
+    background: var(--color-cream);
+  }
+
+  .faq-section .faq-item > div {
+    border-color: rgb(14 13 12 / 0.12);
+    color: rgb(14 13 12 / 0.72);
+  }
+</style>

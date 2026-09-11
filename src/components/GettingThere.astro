@@ -7,7 +7,7 @@ const appleMapsUrl = `https://maps.apple.com/?address=${encodedAddress}`;
 const embedUrl = `https://maps.google.com/maps?q=${VENUE.lat},${VENUE.lng}&z=16&output=embed`;
 ---
 
-<section id="getting-there" data-header-theme="dark" class="section-dark section-padding editorial-section getting-there-section">
+<section id="getting-there" data-header-theme="dark" class="section-padding editorial-section getting-there-section">
   <div class="page-container">
     <div class="getting-there-layout">
       <div class="getting-there-copy fade-rise">
@@ -76,12 +76,14 @@ const embedUrl = `https://maps.google.com/maps?q=${VENUE.lat},${VENUE.lng}&z=16&
 
   .getting-there-copy h2 {
     max-width: 8ch;
+    color: var(--color-dark);
     font-size: clamp(3rem, 7vw, 6.5rem);
     line-height: 0.82;
   }
 
   .getting-there-intro {
     max-width: 30rem;
+    color: rgb(14 13 12 / 0.72);
   }
 
   .getting-there-address {
@@ -90,7 +92,7 @@ const embedUrl = `https://maps.google.com/maps?q=${VENUE.lat},${VENUE.lng}&z=16&
     gap: 0.25rem;
     padding-left: 1.25rem;
     border-left: 2px solid var(--color-gold);
-    color: rgb(244 241 234 / 0.72);
+    color: rgb(14 13 12 / 0.72);
     font-size: 0.95rem;
     line-height: 1.5;
   }
@@ -105,7 +107,7 @@ const embedUrl = `https://maps.google.com/maps?q=${VENUE.lat},${VENUE.lng}&z=16&
   }
 
   .getting-there-address strong {
-    color: var(--color-foreground);
+    color: var(--color-dark);
     font-size: 1.15rem;
   }
 
@@ -113,7 +115,7 @@ const embedUrl = `https://maps.google.com/maps?q=${VENUE.lat},${VENUE.lng}&z=16&
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    color: rgb(244 241 234 / 0.45);
+    color: rgb(14 13 12 / 0.5);
     font-family: var(--font-display);
     font-size: 0.68rem;
     letter-spacing: 0.1em;
@@ -126,9 +128,9 @@ const embedUrl = `https://maps.google.com/maps?q=${VENUE.lat},${VENUE.lng}&z=16&
 
   .getting-there-map {
     overflow: hidden;
-    border: 1px solid rgb(244 241 234 / 0.16);
-    background: var(--color-dark-card);
-    box-shadow: 0 24px 60px rgb(0 0 0 / 0.32);
+    border: 1px solid rgb(14 13 12 / 0.16);
+    background: #fff;
+    box-shadow: 0 24px 60px rgb(14 13 12 / 0.14);
   }
 
   .getting-there-map__header {
@@ -136,7 +138,7 @@ const embedUrl = `https://maps.google.com/maps?q=${VENUE.lat},${VENUE.lng}&z=16&
     justify-content: space-between;
     gap: 1rem;
     padding: 0.8rem 1rem;
-    color: rgb(244 241 234 / 0.58);
+    color: rgb(14 13 12 / 0.62);
     font-size: 0.62rem;
     font-weight: 700;
     letter-spacing: 0.12em;
@@ -180,7 +182,12 @@ const embedUrl = `https://maps.google.com/maps?q=${VENUE.lat},${VENUE.lng}&z=16&
     flex-wrap: wrap;
     gap: 0.75rem;
     padding: 1rem;
-    background: var(--color-dark-card);
+    background: var(--color-cream);
+  }
+
+  .getting-there-section {
+    color: var(--color-dark);
+    background: #f4f1ea;
   }
 
   .getting-there-map__btn {
