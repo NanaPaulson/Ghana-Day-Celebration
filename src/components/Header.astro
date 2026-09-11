@@ -1,8 +1,6 @@
 ---
 import { mainNav } from '../data/nav';
-import { CONTACT_EMAIL } from '../constants';
 
-const contactMailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Ghana Day Information')}`;
 const logoSrc = `/images/logo.png?v=20260812`;
 ---
 
@@ -12,7 +10,7 @@ const logoSrc = `/images/logo.png?v=20260812`;
   <div class="header-inner mx-auto flex max-w-7xl items-center gap-3 px-4 sm:px-5 lg:gap-4 lg:px-8">
     <a
       href="/"
-      class="brand-lockup flex min-w-0 items-center gap-2 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ghana-gold md:gap-2.5"
+      class="brand-lockup flex min-w-0 items-center gap-1 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ghana-gold md:gap-1.5"
       aria-label="Ghana Day in Tampa Bay, Ghanaian Association of Tampa Bay home"
     >
       <span class="header-logo-shell shrink-0" aria-hidden="true">
@@ -49,9 +47,6 @@ const logoSrc = `/images/logo.png?v=20260812`;
     </nav>
 
     <div class="header-actions ml-auto flex shrink-0 items-center gap-2 sm:gap-3">
-      <a href={contactMailto} class="header-cta btn-gold hidden lg:inline-flex">
-        Contact the Team
-      </a>
       <button
         id="menu-toggle"
         type="button"
@@ -93,9 +88,6 @@ const logoSrc = `/images/logo.png?v=20260812`;
         {link.label}
       </a>
     ))}
-    <a href={contactMailto} class="mobile-nav-link mobile-nav-cta btn-gold mt-6 w-full text-center">
-      Contact the Team
-    </a>
   </nav>
 </div>
 
@@ -184,7 +176,9 @@ const logoSrc = `/images/logo.png?v=20260812`;
   }
 
   .site-header.header-light .header-surface {
-    background: var(--color-header-light-bg);
+    background:
+      radial-gradient(circle at 78% 0%, rgb(242 169 0 / 0.1), transparent 30%),
+      var(--color-header-bg);
   }
 
   .header-inner {
@@ -322,19 +316,19 @@ const logoSrc = `/images/logo.png?v=20260812`;
 
   .site-header.header-light .header-logo-shell {
     background: rgb(14 13 12 / 0.72);
-    border-color: rgb(242 169 0 / 0.75);
+    border-color: var(--color-border-gold-emphasis);
     box-shadow:
-      0 0 0 1px rgb(26 22 19 / 0.12),
-      0 2px 12px rgb(26 22 19 / 0.22);
+      0 0 0 1px rgb(0 0 0 / 0.35),
+      0 2px 14px rgb(0 0 0 / 0.45);
   }
 
   .site-header.header-light .header-brand-day,
   .site-header.header-light .header-org {
-    color: var(--color-ink);
+    color: var(--color-foreground);
   }
 
   .site-header.header-light .header-brand-gold {
-    color: var(--color-green);
+    color: var(--color-gold);
   }
 
   .header-cta {

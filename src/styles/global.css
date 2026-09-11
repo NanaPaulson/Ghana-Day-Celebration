@@ -553,17 +553,17 @@
       inset: 0;
       z-index: 2;
       pointer-events: none;
-      background: linear-gradient(
-        90deg,
-        rgb(5 5 5 / 0.92) 0%,
-        rgb(5 5 5 / 0.72) 22%,
-        rgb(5 5 5 / 0.22) 43%,
-        transparent 65%
-      );
+      background:
+        radial-gradient(ellipse 34% 92% at 14% 50%, rgb(5 5 5 / 0.48), transparent 78%),
+        linear-gradient(90deg, rgb(5 5 5 / 0.96) 0%, rgb(5 5 5 / 0.78) 24%, rgb(5 5 5 / 0.26) 48%, transparent 68%);
     }
 
     #hero .home-carousel__content {
       background: transparent;
+    }
+
+    #hero .hero-copy {
+      text-shadow: 0 2px 3px rgb(0 0 0 / 0.7), 0 8px 28px rgb(0 0 0 / 0.55);
     }
 
     #hero .hero-slide-fill {
@@ -955,36 +955,37 @@
   }
 
   #site-header.header-light {
-    border-bottom-color: var(--color-border-gold-strong);
-    box-shadow: 0 2px 12px rgba(26, 22, 19, 0.06);
+    background-color: var(--color-header-bg);
+    border-bottom-color: transparent;
+    box-shadow: 0 2px 16px rgb(0 0 0 / 0.25);
   }
 
   #site-header.header-light .nav-link {
-    @apply text-ink/88 hover:text-ghana-green;
+    @apply text-foreground/88 hover:text-ghana-gold;
   }
 
   #site-header.header-light .nav-link.is-active {
-    color: var(--color-green);
+    color: var(--color-gold);
   }
 
   #site-header.header-light .nav-link::after {
-    @apply bg-ghana-green;
+    @apply bg-ghana-gold;
   }
 
   #site-header.header-light .brand-lockup-text {
-    @apply text-ink;
+    @apply text-foreground;
   }
 
   #site-header.header-light .brand-lockup-org {
-    @apply text-ink/75;
+    @apply text-foreground/75;
   }
 
   #site-header.header-light #menu-toggle {
-    @apply border-ghana-gold/40;
+    @apply border-foreground/25 bg-dark/40;
   }
 
   #site-header.header-light #menu-toggle svg {
-    @apply text-ink;
+    @apply text-foreground;
   }
 
   #site-header:not(.header-light) .nav-link {

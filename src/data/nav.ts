@@ -8,6 +8,7 @@ export const mainNav = [
   { href: '#history', label: 'History', sectionId: 'history' },
   { href: '#marketplace', label: 'Marketplace', sectionId: 'marketplace' },
   { href: '#schedule', label: 'Schedule', sectionId: 'schedule' },
+  { href: '#contact', label: 'Contact Us', sectionId: 'contact' },
 ] as const;
 
 export const footerNav = [
