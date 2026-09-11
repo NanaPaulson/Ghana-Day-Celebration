@@ -1,6 +1,6 @@
 ---
 import { footerNav } from '../data/nav';
-import { EVENT_DATE, ORGANIZATION_NAME, SOCIAL, VENUE } from '../constants';
+import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DISPLAY, EVENT_DATE, ORGANIZATION_NAME, SOCIAL, VENUE } from '../constants';
 import SocialIcon from './SocialIcon.astro';
 
 const socialLinks = [
@@ -45,6 +45,14 @@ const legalLinks = [
           {VENUE.name}<br />
           {VENUE.city}, {VENUE.state}
         </address>
+        <div class="mt-5 flex flex-col items-center gap-2 text-sm sm:items-start sm:text-body">
+          <a href={`mailto:${CONTACT_EMAIL}`} class="footer-link text-ghana-gold transition-colors hover:text-ghana-gold-hover">
+            {CONTACT_EMAIL}
+          </a>
+          <a href={`tel:${CONTACT_PHONE}`} class="footer-link text-foreground/80 transition-colors hover:text-ghana-gold">
+            {CONTACT_PHONE_DISPLAY}
+          </a>
+        </div>
       </div>
 
       <div>
