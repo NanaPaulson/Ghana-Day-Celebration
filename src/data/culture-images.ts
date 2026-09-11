@@ -1,6 +1,7 @@
 /** Regional Ghana culture photography: Ga, Ewe, Northern, Fante (no kente-focused assets). */
 export const cultureImages = {
   hero: '/images/gallery/hero-multicultural.jpg',
+  officialBanner: '/images/Banner.jpeg',
   kwameNkrumahStatue: '/images/gallery/hero-carousel-nkrumah-park-ai-mobile-1600x900.webp',
   akan: '/images/gallery/traditional-dance.jpg',
   ga: '/images/gallery/ga-culture.jpg',
@@ -32,6 +33,13 @@ export const homeCarouselDesktopImages = {
 
 /** Background slides for the hero (home screen). */
 export const homeCarouselSlides = [
+  {
+    id: 'official-banner',
+    mobileImage: cultureImages.officialBanner,
+    desktopImage: cultureImages.officialBanner,
+    alt: 'Official Ghana Day in Tampa Bay GhanaFest Florida 2026 program banner',
+    objectPositionMobile: '50% 50%',
+  },
   {
     id: 'nkrumah-statue',
     mobileImage: cultureImages.kwameNkrumahStatue,
