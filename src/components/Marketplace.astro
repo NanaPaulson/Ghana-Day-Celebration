@@ -1,32 +1,22 @@
 ---
 import { cultureImages } from '../data/culture-images';
+import { marketplaceItems } from '../data/pulse';
 
-const marketplaceVisuals = [
-  {
-    image: cultureImages.marketplace,
-    category: 'Craft & Textiles',
-    title: 'Woven heritage',
-    alt: 'Ghanaian marketplace stall displaying woven baskets, beads, cloth, and handmade goods',
-  },
-  {
-    image: '/images/gallery/marketplace-vendor-booth.jpg',
-    category: 'Baskets & Beads',
-    title: 'Made to be carried home',
-    alt: 'Ghanaian vendor arranging baskets, jewelry, carved figures, and colorful textiles',
-  },
-  {
-    image: '/images/gallery/fashion-traditional-portrait.jpg',
-    category: 'Fashion',
-    title: 'Wear the culture',
-    alt: 'Ghanaian-inspired fashion portrait featuring a traditional patterned outfit',
-  },
-  {
-    image: cultureImages.food,
-    category: 'Taste of Ghana',
-    title: 'Gather around flavor',
-    alt: 'Traditional Ghanaian food prepared for a shared celebration meal',
-  },
+const marketplaceImages = [
+  { src: '/images/pulse/marketplace.png', position: '52% 62%' },
+  { src: '/images/pulse/marketplace.png', position: '52% 54%' },
+  { src: '/images/pulse/marketplace.png', position: '28% 55%' },
+  { src: '/images/pulse/marketplace.png', position: '58% 28%' },
+  { src: '/images/pulse/marketplace.png', position: '78% 38%' },
+  { src: '/images/pulse/marketplace.png', position: '24% 78%' },
 ] as const;
+
+const marketplaceVisuals = marketplaceItems.map((item, index) => ({
+  ...item,
+  image: marketplaceImages[index].src,
+  objectPosition: marketplaceImages[index].position,
+  alt: `${item.title} shown among Ghanaian handmade marketplace goods`,
+}));
 ---
 
 <section id="marketplace" data-header-theme="dark" class="pulse-section relative min-h-[70vh] editorial-section marketplace-section">
@@ -47,14 +37,20 @@ const marketplaceVisuals = [
         </p>
         <div class="marketplace-heading__note fade-rise" style="--reveal-delay: 140ms">
           <span>Festival marketplace</span>
-          <span>{String(marketplaceVisuals.length).padStart(2, '0')} / visual highlights</span>
+          <span>{String(marketplaceVisuals.length).padStart(2, '0')} / featured items</span>
         </div>
       </header>
 
       <div class="marketplace-grid" data-stagger>
         {marketplaceVisuals.map((item, i) => (
           <article class="marketplace-card pulse-card fade-rise" style={`--reveal-delay: ${i * 70}ms`}>
-            <img src={item.image} alt={item.alt} loading="lazy" decoding="async" />
+            <img
+              src={item.image}
+              alt={item.alt}
+              style={`object-position: ${item.objectPosition}`}
+              loading="lazy"
+              decoding="async"
+            />
             <div class="marketplace-card__overlay">
               <div class="marketplace-card__top">
                 <span>0{i + 1}</span>
